@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vbox" alignment="CENTER" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.parametresController">
+   <children>
+      <Label text="- Paramètres -">
+         <font>
+            <Font name="AR BERKLEY" size="36.0" />
+         </font>
+      </Label>
+      <HBox alignment="CENTER" prefWidth="200.0">
+         <children>
+            <Label text="Taille de la fenêtre :">
+               <font>
+                  <Font name="AR BERKLEY" size="24.0" />
+               </font>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+            </Label>
+            <ChoiceBox prefHeight="20.0" prefWidth="200.0" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" top="40.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="179.0" prefWidth="200.0">
+         <children>
+            <Label text="Volume :">
+               <font>
+                  <Font name="AR BERKLEY" size="24.0" />
+               </font>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+            </Label>
+            <Label text="x%">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+            <Slider prefWidth="200.0" />
+            <Label text="100%">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="20.0" top="20.0" />
+         </padding>
+      </HBox>
+      <HBox fx:id="hbox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: gray;" text="Sauvegarder" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: red;" text="Annuler" />
+         </children>
+         <padding>
+            <Insets top="50.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>

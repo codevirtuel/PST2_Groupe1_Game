@@ -26,17 +26,15 @@ public class Scaler {
 		double factor = newWidth/720;
 		ArrayList<Node> nodes = getAllNodes(root);
 		for(Node node : nodes) {
-			if(!(node instanceof HBox)) {
-				scale(node,factor);
-			}
+			scale(node,factor);
 		}
 		scale(root,factor);
 	}
 	
 	public static void scale(Node obj, double factor) {
 		
+		//AnchorPane
 		if(obj.getParent() instanceof AnchorPane) {
-			//AnchorPane parent = (AnchorPane) obj.getParent();
 			double anchorFactor = Math.round(factor);
 			//Left anchor
 			if(AnchorPane.getLeftAnchor(obj) != null) AnchorPane.setLeftAnchor(obj, AnchorPane.getLeftAnchor(obj)*anchorFactor);
@@ -46,6 +44,12 @@ public class Scaler {
 			if(AnchorPane.getTopAnchor(obj) != null) AnchorPane.setTopAnchor(obj, AnchorPane.getTopAnchor(obj)*anchorFactor);
 			//Bottom anchor
 			if(AnchorPane.getBottomAnchor(obj) != null) AnchorPane.setBottomAnchor(obj, AnchorPane.getBottomAnchor(obj)*anchorFactor);
+		}
+		
+		//HBox spacing
+		if(obj.getParent() instanceof HBox) {
+			HBox parent = (HBox) obj.getParent();
+			parent.setSpacing(parent.getSpacing()*factor);
 		}
 		
 		if(obj instanceof Label) {
@@ -61,6 +65,10 @@ public class Scaler {
 		}
 		else{
 			((Region) obj).setPrefSize(((Region) obj).getPrefWidth()*factor, ((Region) obj).getPrefHeight()*factor);
+		}
+		
+		//Padding resize
+		if(obj instanceof Region) {
 			((Region) obj).setPadding(new Insets(
 					((Region) obj).getPadding().getTop()*factor,
 					((Region) obj).getPadding().getRight()*factor,
@@ -68,6 +76,7 @@ public class Scaler {
 					((Region) obj).getPadding().getLeft()*factor)
 			);
 		}
+		
 	}
 	
 
