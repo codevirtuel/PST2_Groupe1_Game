@@ -2,12 +2,14 @@ package application.view;
 
 import java.util.ArrayList;
 
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -22,16 +24,34 @@ public class Scaler {
 	
 	public static void updateSize(double newWidth,Pane root) {		
 		double factor = newWidth/720;
-		
 		ArrayList<Node> nodes = getAllNodes(root);
 		for(Node node : nodes) {
-			if(!(node instanceof HBox)) {
-				scale(node,factor);
-			}
+			scale(node,factor);
 		}
+		scale(root,factor);
 	}
 	
 	public static void scale(Node obj, double factor) {
+		
+		//AnchorPane
+		if(obj.getParent() instanceof AnchorPane) {
+			double anchorFactor = Math.round(factor);
+			//Left anchor
+			if(AnchorPane.getLeftAnchor(obj) != null) AnchorPane.setLeftAnchor(obj, AnchorPane.getLeftAnchor(obj)*anchorFactor);
+			//Right anchor
+			if(AnchorPane.getRightAnchor(obj) != null) AnchorPane.setRightAnchor(obj, AnchorPane.getRightAnchor(obj)*anchorFactor);
+			//Top anchor
+			if(AnchorPane.getTopAnchor(obj) != null) AnchorPane.setTopAnchor(obj, AnchorPane.getTopAnchor(obj)*anchorFactor);
+			//Bottom anchor
+			if(AnchorPane.getBottomAnchor(obj) != null) AnchorPane.setBottomAnchor(obj, AnchorPane.getBottomAnchor(obj)*anchorFactor);
+		}
+		
+		//HBox spacing
+		if(obj.getParent() instanceof HBox) {
+			HBox parent = (HBox) obj.getParent();
+			parent.setSpacing(parent.getSpacing()*factor);
+		}
+		
 		if(obj instanceof Label) {
 			((Labeled) obj).setFont(new Font(((Labeled) obj).getFont().getSize()*factor));
 		}
@@ -46,6 +66,17 @@ public class Scaler {
 		else{
 			((Region) obj).setPrefSize(((Region) obj).getPrefWidth()*factor, ((Region) obj).getPrefHeight()*factor);
 		}
+		
+		//Padding resize
+		if(obj instanceof Region) {
+			((Region) obj).setPadding(new Insets(
+					((Region) obj).getPadding().getTop()*factor,
+					((Region) obj).getPadding().getRight()*factor,
+					((Region) obj).getPadding().getBottom()*factor,
+					((Region) obj).getPadding().getLeft()*factor)
+			);
+		}
+		
 	}
 	
 
