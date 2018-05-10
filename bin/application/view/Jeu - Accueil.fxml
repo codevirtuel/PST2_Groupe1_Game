@@ -16,9 +16,9 @@
             <Image url="@logo.png" />
          </image>
       </ImageView>
-      <Label text="- jeu de question avec sélection de zones -">
+      <Label alignment="CENTER" prefHeight="45.0" prefWidth="695.0" text="- jeu de question avec sélection de zones -">
          <font>
-            <Font name="AR CENA" size="30.0" />
+            <Font size="24.0" />
          </font>
       </Label>
       <HBox alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="40.0">

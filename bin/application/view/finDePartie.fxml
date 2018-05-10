@@ -11,19 +11,19 @@
 
 <VBox fx:id="vbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.finPartieController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" text="- Fin de partie -">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="725.0" text="- Fin de partie -">
          <font>
             <Font name="AR BERKLEY" size="24.0" />
          </font>
       </Label>
       <AnchorPane fx:id="anchor" prefHeight="299.0" prefWidth="620.0">
          <children>
-            <Label layoutY="109.0" text="Vous avez x bonnes réponses" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="109.0">
+            <Label layoutY="109.0" prefHeight="41.0" prefWidth="310.0" text="Vous avez x bonnes réponses" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="109.0">
                <font>
-                  <Font name="AR BERKLEY" size="24.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="310.0" layoutY="14.0" text="Résumé de la partie :" AnchorPane.bottomAnchor="145.0" AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="14.0">
+            <Label layoutX="310.0" layoutY="14.0" prefHeight="41.0" prefWidth="310.0" text="Résumé de la partie :" AnchorPane.bottomAnchor="145.0" AnchorPane.leftAnchor="310.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
                <font>
                   <Font name="AR BERKLEY" size="24.0" />
                </font>
