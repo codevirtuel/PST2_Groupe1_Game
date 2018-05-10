@@ -8,12 +8,15 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 /*
  * 	Syntaxe :
@@ -23,7 +26,7 @@ import javafx.scene.text.Font;
 public class Scaler {
 	
 	public static void updateSize(double newWidth,Pane root) {		
-		double factor = newWidth/720;
+		double factor = newWidth/640;
 		ArrayList<Node> nodes = getAllNodes(root);
 		for(Node node : nodes) {
 			scale(node,factor);
@@ -54,6 +57,7 @@ public class Scaler {
 		
 		if(obj instanceof Label) {
 			((Labeled) obj).setFont(new Font(((Labeled) obj).getFont().getSize()*factor));
+			((Region) obj).setPrefSize(((Region) obj).getPrefWidth()*factor, ((Region) obj).getPrefHeight()*factor);
 		}
 		else if(obj instanceof ImageView) {
 			((ImageView) obj).setFitHeight(((ImageView) obj).getFitHeight()*factor);
@@ -61,6 +65,14 @@ public class Scaler {
 		}
 		else if(obj instanceof Button) {
 			((Button) obj).setFont(new Font(((Button) obj).getFont().getSize()*factor));
+			((Region) obj).setMinSize(((Region) obj).getPrefWidth()*factor, ((Region) obj).getPrefHeight()*factor);
+		}
+		else if(obj instanceof Text) {
+			((Text) obj).setFont(new Font(((Text) obj).getFont().getSize()*factor));
+			((Text) obj).setWrappingWidth(((Text) obj).getWrappingWidth()*factor);
+		}
+		else if(obj instanceof TextField) {
+			((TextField) obj).setFont(new Font(((TextField) obj).getFont().getSize()*factor));
 			((Region) obj).setPrefSize(((Region) obj).getPrefWidth()*factor, ((Region) obj).getPrefHeight()*factor);
 		}
 		else{
@@ -75,7 +87,27 @@ public class Scaler {
 					((Region) obj).getPadding().getBottom()*factor,
 					((Region) obj).getPadding().getLeft()*factor)
 			);
+			
+			//Margin resize
+			Insets margin = new Insets(0,0,0,0);
+			if(obj.getParent() instanceof HBox) {
+				margin = ((HBox) obj.getParent()).getMargin(obj);
+				if(margin != null) {
+					Insets newMargin = new Insets(margin.getTop()*factor,margin.getRight()*factor,margin.getBottom()*factor,margin.getLeft()*factor);
+					((HBox) obj.getParent()).setMargin(obj, newMargin);
+				}
+			}
+			if(obj.getParent() instanceof VBox) {
+				margin = ((VBox) obj.getParent()).getMargin(obj);
+				if(margin != null) {
+					Insets newMargin = new Insets(margin.getTop()*factor,margin.getRight()*factor,margin.getBottom()*factor,margin.getLeft()*factor);
+					((VBox) obj.getParent()).setMargin(obj, newMargin);
+				}
+			}
+			
 		}
+		
+		
 		
 	}
 	

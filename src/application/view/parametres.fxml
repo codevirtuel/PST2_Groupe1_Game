@@ -11,14 +11,14 @@
 
 <VBox fx:id="vbox" alignment="CENTER" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.parametresController">
    <children>
-      <Label text="- Paramètres -">
+      <Label alignment="CENTER" prefHeight="53.0" prefWidth="837.0" text="- Paramètres -">
          <font>
             <Font name="AR BERKLEY" size="36.0" />
          </font>
       </Label>
       <HBox alignment="CENTER" prefWidth="200.0">
          <children>
-            <Label text="Taille de la fenêtre :">
+            <Label prefHeight="35.0" prefWidth="230.0" text="Taille de la fenêtre :">
                <font>
                   <Font name="AR BERKLEY" size="24.0" />
                </font>
@@ -34,7 +34,7 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="10.0" layoutY="179.0" prefWidth="200.0">
          <children>
-            <Label text="Volume :">
+            <Label prefHeight="35.0" prefWidth="120.0" text="Volume :">
                <font>
                   <Font name="AR BERKLEY" size="24.0" />
                </font>
@@ -42,13 +42,13 @@
                   <Insets right="20.0" />
                </padding>
             </Label>
-            <Label text="x%">
+            <Label prefHeight="17.0" prefWidth="24.0" text="x%">
                <padding>
                   <Insets right="5.0" />
                </padding>
             </Label>
             <Slider prefWidth="200.0" />
-            <Label text="100%">
+            <Label prefHeight="17.0" prefWidth="36.0" text="100%">
                <padding>
                   <Insets right="5.0" />
                </padding>
