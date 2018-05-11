@@ -11,12 +11,12 @@
 
 <VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.accueilController">
    <children>
-      <ImageView fitHeight="200.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="158.0" fitWidth="423.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@logo.png" />
          </image>
       </ImageView>
-      <Label text="- jeu de question avec sélection de zones -">
+      <Label text="- Jeu de question avec sélection de zones -">
          <font>
             <Font name="AR CENA" size="30.0" />
          </font>
