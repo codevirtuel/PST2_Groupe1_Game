@@ -11,14 +11,22 @@
 
 <VBox fx:id="vbox" alignment="CENTER" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.parametresController">
    <children>
+<<<<<<< HEAD
       <Label alignment="CENTER" prefHeight="53.0" prefWidth="837.0" text="- Paramètres -">
+=======
+      <Label text="- Paramètres -">
+>>>>>>> BaptisteGuer
          <font>
             <Font name="AR BERKLEY" size="36.0" />
          </font>
       </Label>
       <HBox alignment="CENTER" prefWidth="200.0">
          <children>
+<<<<<<< HEAD
             <Label prefHeight="35.0" prefWidth="230.0" text="Taille de la fenêtre :">
+=======
+            <Label text="Taille de la fenêtre :">
+>>>>>>> BaptisteGuer
                <font>
                   <Font name="AR BERKLEY" size="24.0" />
                </font>
@@ -34,7 +42,11 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="10.0" layoutY="179.0" prefWidth="200.0">
          <children>
+<<<<<<< HEAD
             <Label prefHeight="35.0" prefWidth="120.0" text="Volume :">
+=======
+            <Label text="Volume :">
+>>>>>>> BaptisteGuer
                <font>
                   <Font name="AR BERKLEY" size="24.0" />
                </font>
@@ -42,13 +54,21 @@
                   <Insets right="20.0" />
                </padding>
             </Label>
+<<<<<<< HEAD
             <Label prefHeight="17.0" prefWidth="24.0" text="x%">
+=======
+            <Label text="x%">
+>>>>>>> BaptisteGuer
                <padding>
                   <Insets right="5.0" />
                </padding>
             </Label>
             <Slider prefWidth="200.0" />
+<<<<<<< HEAD
             <Label prefHeight="17.0" prefWidth="36.0" text="100%">
+=======
+            <Label text="100%">
+>>>>>>> BaptisteGuer
                <padding>
                   <Insets right="5.0" />
                </padding>
