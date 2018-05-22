@@ -25,7 +25,7 @@ public class Main extends Application {
 			//gameController.primaryStage = primaryStage;
 			//finPartieController.primaryStage = primaryStage;
 			accueilController.primaryStage = primaryStage;
-			root = FXMLLoader.load(getClass().getResource("view/parametres.fxml"));
+			root = FXMLLoader.load(getClass().getResource("view/Jeu - Accueil.fxml"));
 			Scene scene = new Scene(root,width,height);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			

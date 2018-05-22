@@ -42,13 +42,13 @@
                   <Insets right="20.0" />
                </padding>
             </Label>
-            <Label prefHeight="17.0" prefWidth="24.0" text="x%">
+            <Label fx:id="currentVolume" prefHeight="18.0" prefWidth="48.0" text="x%">
                <padding>
                   <Insets right="5.0" />
                </padding>
             </Label>
-            <Slider prefWidth="200.0" />
-            <Label prefHeight="17.0" prefWidth="36.0" text="100%">
+            <Slider fx:id="slider" onMouseClicked="#updateVolume" onMouseDragged="#updateVolume" prefWidth="200.0" />
+            <Label prefHeight="18.0" prefWidth="46.0" text="100%">
                <padding>
                   <Insets right="5.0" />
                </padding>
@@ -61,7 +61,7 @@
       <HBox fx:id="hbox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: gray;" text="Sauvegarder" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: red;" text="Annuler" />
+            <Button mnemonicParsing="false" onMouseClicked="#goToAccueil" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: red;" text="Annuler" />
          </children>
          <padding>
             <Insets top="50.0" />
