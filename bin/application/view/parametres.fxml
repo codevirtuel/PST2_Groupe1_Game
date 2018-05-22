@@ -60,7 +60,7 @@
       </HBox>
       <HBox fx:id="hbox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: gray;" text="Sauvegarder" />
+            <Button mnemonicParsing="false" onMouseClicked="#sauvegarder" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: gray;" text="Sauvegarder" />
             <Button mnemonicParsing="false" onMouseClicked="#goToAccueil" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: red;" text="Annuler" />
          </children>
          <padding>

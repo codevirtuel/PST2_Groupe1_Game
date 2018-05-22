@@ -56,6 +56,12 @@ public class parametresController {
 	}
 	
 	@FXML
+	public void sauvegarder() throws IOException {
+		updateResolution();
+		goToAccueil();
+	}
+	
+	@FXML
 	public void updateVolume() {
 		volume = slider.getValue();
 		currentVolume.setText(Math.round(volume)+"%");
@@ -78,6 +84,25 @@ public class parametresController {
 		case 1080:
 			resolutions.getSelectionModel().select(2); break;
 		}
-		
+	}
+	
+	@FXML
+	public void updateResolution() {
+		String reso = (String) resolutions.getValue();
+		switch(reso) {
+		case "640 x 360":
+			Main.width = 640;
+			Main.height = 360;
+			break;
+		case "1280 x 720":
+			Main.width = 1280;
+			Main.height = 720;
+			break;
+		case "1920 x 1080":
+			Main.width = 1980;
+			Main.height = 1080;
+			break;
+		}
+		System.out.println("Updated Resolution to "+Main.width+" x "+Main.height);
 	}
 }
