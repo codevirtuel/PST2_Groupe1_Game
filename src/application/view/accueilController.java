@@ -33,4 +33,9 @@ public class accueilController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+	
+	@FXML
+	public void quitter() {
+		primaryStage.close();
+	}
 }
