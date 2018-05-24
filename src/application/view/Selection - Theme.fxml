@@ -14,7 +14,7 @@
    <children>
       <VBox alignment="CENTER" prefHeight="245.0" prefWidth="640.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="320.0" text="- Sélectionnez un thème -">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="307.0" text="- Sélectionnez un thème -">
                <font>
                   <Font name="Gabriola" size="36.0" />
                </font>
