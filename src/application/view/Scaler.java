@@ -27,6 +27,7 @@ public class Scaler {
 	
 	public static void updateSize(double newWidth,Pane root) {		
 		double factor = newWidth/640;
+		System.out.println("Factor : "+factor);
 		ArrayList<Node> nodes = getAllNodes(root);
 		for(Node node : nodes) {
 			scale(node,factor);
@@ -50,11 +51,9 @@ public class Scaler {
 		}
 		
 		//HBox spacing
-		if(obj.getParent() instanceof HBox) {
-			HBox parent = (HBox) obj.getParent();
-			parent.setSpacing(parent.getSpacing()*factor);
+		if(obj instanceof HBox) {
+			((HBox) obj).setSpacing(((HBox) obj).getSpacing()*factor);
 		}
-		
 		if(obj instanceof Label) {
 			((Labeled) obj).setFont(new Font(((Labeled) obj).getFont().getSize()*factor));
 			((Region) obj).setPrefSize(((Region) obj).getPrefWidth()*factor, ((Region) obj).getPrefHeight()*factor);
@@ -111,8 +110,6 @@ public class Scaler {
 		
 	}
 	
-
-
 	public static ArrayList<Node> getAllNodes(Parent root) {
 	    ArrayList<Node> nodes = new ArrayList<Node>();
 	    addAllDescendents(root, nodes);

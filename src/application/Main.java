@@ -8,8 +8,10 @@ import application.view.finPartieController;
 import application.view.gameController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -33,6 +35,11 @@ public class Main extends Application {
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+			//Center screen
+			Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+	        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+	        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

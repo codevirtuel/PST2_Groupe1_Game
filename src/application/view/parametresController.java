@@ -29,6 +29,7 @@ public class parametresController {
 	//Gestion résolutions
 	@FXML
 	ComboBox resolutions;
+
 	
 	@FXML
 	VBox vbox;
@@ -55,6 +56,8 @@ public class parametresController {
 		primaryStage.show();
 	}
 	
+
+	
 	@FXML
 	public void sauvegarder() throws IOException {
 		updateResolution();
@@ -71,7 +74,9 @@ public class parametresController {
 	public void populateResolutions() {
 		ObservableList<String> liste = FXCollections.observableArrayList
 				("640 x 360",
+				"896 x 504",
 				"1280 x 720",
+				"1664 x 936",
 				"1920 x 1080");
 		resolutions.setItems(liste);
 		
@@ -79,10 +84,14 @@ public class parametresController {
 		switch(Main.height) {
 		case 360:
 			resolutions.getSelectionModel().select(0); break;
-		case 720:
+		case 504:
 			resolutions.getSelectionModel().select(1); break;
-		case 1080:
+		case 720:
 			resolutions.getSelectionModel().select(2); break;
+		case 936:
+			resolutions.getSelectionModel().select(3); break;
+		case 1080:
+			resolutions.getSelectionModel().select(4); break;
 		}
 	}
 	
@@ -94,9 +103,17 @@ public class parametresController {
 			Main.width = 640;
 			Main.height = 360;
 			break;
+		case "896 x 504":
+			Main.width = 896;
+			Main.height = 504;
+			break;
 		case "1280 x 720":
 			Main.width = 1280;
 			Main.height = 720;
+			break;
+		case "1664 x 936":
+			Main.width = 1664;
+			Main.height = 936;
 			break;
 		case "1920 x 1080":
 			Main.width = 1980;
