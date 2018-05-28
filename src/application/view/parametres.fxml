@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.HBox?>
@@ -26,7 +26,7 @@
                   <Insets right="20.0" />
                </padding>
             </Label>
-            <ChoiceBox prefHeight="20.0" prefWidth="200.0" />
+            <ComboBox fx:id="resolutions" prefHeight="20.0" prefWidth="200.0" />
          </children>
          <padding>
             <Insets bottom="20.0" top="40.0" />
@@ -42,13 +42,13 @@
                   <Insets right="20.0" />
                </padding>
             </Label>
-            <Label prefHeight="17.0" prefWidth="24.0" text="x%">
+            <Label fx:id="currentVolume" prefHeight="18.0" prefWidth="48.0" text="x%">
                <padding>
                   <Insets right="5.0" />
                </padding>
             </Label>
-            <Slider prefWidth="200.0" />
-            <Label prefHeight="17.0" prefWidth="36.0" text="100%">
+            <Slider fx:id="slider" onMouseClicked="#updateVolume" onMouseDragged="#updateVolume" prefWidth="200.0" />
+            <Label prefHeight="18.0" prefWidth="46.0" text="100%">
                <padding>
                   <Insets right="5.0" />
                </padding>
@@ -60,8 +60,8 @@
       </HBox>
       <HBox fx:id="hbox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="200.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: gray;" text="Sauvegarder" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: red;" text="Annuler" />
+            <Button mnemonicParsing="false" onMouseClicked="#sauvegarder" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: gray;" text="Sauvegarder" />
+            <Button mnemonicParsing="false" onMouseClicked="#goToAccueil" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: red;" text="Annuler" />
          </children>
          <padding>
             <Insets top="50.0" />
