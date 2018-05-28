@@ -27,7 +27,6 @@ public class Scaler {
 	
 	public static void updateSize(double newWidth,Pane root) {		
 		double factor = newWidth/640;
-		System.out.println("Factor : "+factor);
 		ArrayList<Node> nodes = getAllNodes(root);
 		for(Node node : nodes) {
 			scale(node,factor);
