@@ -1,7 +1,5 @@
 package application;
 	
-import java.awt.Color;
-
 import application.view.accueilController;
 import application.view.finPartieController;
 import application.view.gameController;
@@ -24,13 +22,15 @@ public class Main extends Application {
 		try {
 			VBox root = new VBox();
 			
+			//gameController.primaryStage = primaryStage;
+			//finPartieController.primaryStage = primaryStage;
 			accueilController.primaryStage = primaryStage;
 			root = FXMLLoader.load(getClass().getResource("view/Jeu - Accueil.fxml"));
 			Scene scene = new Scene(root,width,height);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			primaryStage.setResizable(false);
-			
+
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {
