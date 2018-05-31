@@ -24,4 +24,10 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.ini4j</groupId>
+  		<artifactId>ini4j</artifactId>
+  	</dependency>
+  </dependencies>
 </project>
