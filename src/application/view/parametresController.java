@@ -65,6 +65,11 @@ public class parametresController {
 	}
 	
 	@FXML
+	public void saveOptions() {
+
+	}
+	
+	@FXML
 	public void updateVolume() {
 		volume = slider.getValue();
 		currentVolume.setText(Math.round(volume)+"%");

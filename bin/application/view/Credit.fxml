@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.creditController">
+   <children>
+      <Label prefHeight="50.0" prefWidth="135.0" text="- Crédit -">
+         <font>
+            <Font name="Gabriola" size="41.0" />
+         </font>
+      </Label>
+      <VBox alignment="CENTER" prefHeight="42.0" prefWidth="640.0">
+         <children>
+            <Label prefHeight="17.0" prefWidth="520.0" text="Application réalisée par des élèves de DUT Informatique :">
+               <font>
+                  <Font name="Gabriola" size="25.0" />
+               </font>
+               <VBox.margin>
+                  <Insets right="120.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+      <Separator prefWidth="200.0" />
+      <AnchorPane>
+         <children>
+            <VBox alignment="CENTER" centerShape="false" prefHeight="200.0" prefWidth="316.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label prefHeight="31.0" prefWidth="172.0" text="POUPELIN Alexis">
+                     <font>
+                        <Font name="Gabriola" size="25.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefHeight="31.0" prefWidth="172.0" text="DAUDIN Théo">
+                     <font>
+                        <Font name="Gabriola" size="25.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefHeight="31.0" prefWidth="172.0" text="GUERIN Baptiste">
+                     <font>
+                        <Font name="Gabriola" size="25.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefHeight="31.0" prefWidth="172.0" text="MEHEUT Alexandre">
+                     <font>
+                        <Font name="Gabriola" size="25.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefHeight="31.0" prefWidth="172.0" text="VIAUD Loïs">
+                     <font>
+                        <Font name="Gabriola" size="25.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <ImageView fitHeight="91.0" fitWidth="262.0" layoutX="347.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="53.83000335693359" AnchorPane.leftAnchor="347.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="56.0">
+               <image>
+                  <Image url="@../../../bin/application/view/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <VBox alignment="CENTER" prefHeight="56.0" prefWidth="609.0">
+         <children>
+            <Separator prefWidth="200.0" />
+            <Label prefHeight="17.0" prefWidth="520.0" text="Projet tuteuré semestre 2  -  G1       //      IUT LAVAL">
+               <font>
+                  <Font name="Gabriola" size="25.0" />
+               </font>
+               <VBox.margin>
+                  <Insets right="120.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" style="-fx-background-color: red;" text="Menu">
+               <VBox.margin>
+                  <Insets left="500.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>
