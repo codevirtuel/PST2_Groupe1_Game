@@ -8,10 +8,15 @@ import java.util.List;
 
 import application.Main;
 import application.database.Connect;
+import application.gestionThemes.Score;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -26,10 +31,20 @@ public class selectionThemeController {
 	ListView listeTheme;
 	
 	@FXML
+	TableView<Score> listeScore;
+	@FXML
+	TableColumn<Score, String> placement;
+	@FXML
+	TableColumn<Score, String> joueur;
+	@FXML
+	TableColumn<Score, String> score;
+	
+	@FXML
 	public void initialize() {
 		Scaler.updateSize(Main.width,vbox);
 		checkDirectory();
 		checkThemeFolder("test");
+		loadThemeScore();
 		try {
 			populateThemeList();
 		} catch (SQLException e) {
@@ -101,5 +116,26 @@ public class selectionThemeController {
 		
 		listeTheme.setItems(liste);
 	}
+	
+	public ObservableList<Score> loadThemeScore() {
+		ObservableList<Score> liste = FXCollections.observableArrayList(new Score("1","mdr","123"),new Score("1","mdr","123"));
+		
+		//liste.add(new Score("1","mdr","123"));
+		//listeScore.set
+		
+		placement.setCellValueFactory(new PropertyValueFactory<Score,String>("placement"));
+		joueur.setCellValueFactory(new PropertyValueFactory<Score,String>("nomJoueur"));
+		score.setCellValueFactory(new PropertyValueFactory<Score,String>("score"));
+		
+		listeScore.setItems(liste);
+		listeScore.setFixedCellSize(5);
+		listeScore.prefHeightProperty().bind(Bindings.size(listeScore.getItems()).multiply(listeScore.getFixedCellSize()).add(30));
+		System.out.println(listeScore);
+		return liste;
+		
+		
+	}
+	
+	
 	
 }
