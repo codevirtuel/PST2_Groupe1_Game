@@ -63,8 +63,8 @@ public class parametresController {
 	
 	@FXML
 	public void sauvegarder() throws IOException {
-		saveOptions();
 		updateResolution();
+		saveOptions();
 		goToAccueil();
 	}
 	

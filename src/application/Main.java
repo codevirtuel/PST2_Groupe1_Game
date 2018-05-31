@@ -1,6 +1,9 @@
 package application;
 
+import java.io.File;
 import java.sql.SQLException;
+
+import org.ini4j.Ini;
 
 import application.database.Connect;
 import application.view.accueilController;
@@ -24,9 +27,15 @@ public class Main extends Application {
 
 		try {
 			VBox root = new VBox();
-
-			// gameController.primaryStage = primaryStage;
-			// finPartieController.primaryStage = primaryStage;
+			
+			//Check if config file is here
+			File saveFile = new File("options.ini");
+			if(saveFile.exists()) {
+				Ini ini = new Ini(saveFile);
+				width = ini.get("resolution","width",int.class);
+				height = ini.get("resolution","height",int.class);
+			}
+			
 			accueilController.primaryStage = primaryStage;
 			root = FXMLLoader.load(getClass().getResource("view/Jeu - Accueil.fxml"));
 			Scene scene = new Scene(root, width, height);
