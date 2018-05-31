@@ -1,6 +1,10 @@
 package application.view;
 
+import java.io.File;
 import java.io.IOException;
+
+import org.ini4j.Ini;
+import org.ini4j.InvalidFileFormatException;
 
 import application.Main;
 import javafx.collections.FXCollections;
@@ -51,7 +55,6 @@ public class parametresController {
 		Scene scene = new Scene(root,Main.width,Main.height);
 		
 		primaryStage.setResizable(false);
-
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
@@ -60,18 +63,33 @@ public class parametresController {
 	
 	@FXML
 	public void sauvegarder() throws IOException {
+		saveOptions();
 		updateResolution();
 		goToAccueil();
 	}
 	
 	@FXML
-	public void saveOptions() {
-
+	public void saveOptions() throws InvalidFileFormatException, IOException {	
+		File saveFile = new File("options.ini");
+		//remove old file if exists
+		if(saveFile.exists())
+			saveFile.delete();
+		
+		saveFile.createNewFile();
+		
+		Ini ini = new Ini(new File("options.ini"));
+		//Create sections
+		ini.put("resolution", "width",Main.width);
+		ini.put("resolution", "height",Main.height);
+		ini.put("other", "volume",volume);
+		
+		ini.store();
+		System.out.println("Config saved !");
 	}
 	
 	@FXML
 	public void updateVolume() {
-		volume = slider.getValue();
+		volume = Math.round(slider.getValue());
 		currentVolume.setText(Math.round(volume)+"%");
 	}
 	

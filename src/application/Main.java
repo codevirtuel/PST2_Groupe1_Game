@@ -34,12 +34,11 @@ public class Main extends Application {
 
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
+			
+			primaryStage.centerOnScreen();
 			primaryStage.show();
 			
-			//Center screen
-			Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-	        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
-	        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
