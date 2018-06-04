@@ -35,7 +35,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="213.0" prefWidth="640.0">
                <children>
-                  <ListView fx:id="listeTheme" prefHeight="157.0" prefWidth="344.0">
+                  <ListView fx:id="listeTheme" onMouseClicked="#showThemeScore" prefHeight="157.0" prefWidth="344.0">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin>
@@ -56,12 +56,12 @@
       </VBox>
       <HBox alignment="CENTER" prefHeight="70.0" prefWidth="640.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="92.0" style="-fx-background-color: lightgreen;" text="Valider">
+            <Button mnemonicParsing="false" onMouseClicked="#goToGame" prefHeight="38.0" prefWidth="92.0" style="-fx-background-color: lightgreen;" text="Valider">
                <HBox.margin>
                   <Insets left="230.0" right="150.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="92.0" style="-fx-background-color: red;" text="Annuler">
+            <Button mnemonicParsing="false" onMouseClicked="#goToAccueil" prefHeight="31.0" prefWidth="92.0" style="-fx-background-color: red;" text="Annuler">
                <HBox.margin>
                   <Insets top="50.0" />
                </HBox.margin>

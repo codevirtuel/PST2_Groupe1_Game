@@ -7,10 +7,10 @@ public class Score {
     private final SimpleStringProperty nomJoueur;
     private final SimpleStringProperty score;
     
-	public Score(String placement, String nomJoueur, String score) {
-		this.placement = new SimpleStringProperty(placement);
+	public Score(int placement, String nomJoueur, int score) {
+		this.placement = new SimpleStringProperty(String.valueOf(placement));
 		this.nomJoueur = new SimpleStringProperty(nomJoueur);
-		this.score = new SimpleStringProperty(score);
+		this.score = new SimpleStringProperty(String.valueOf(score));
 	}
 	
 	public String getPlacement() {
@@ -32,5 +32,10 @@ public class Score {
     }
     public void setScore(String score) {
         this.score.set(score);
+    }
+    
+    //toString
+    public String toString() {
+    	return "#"+placement+" "+score+" "+nomJoueur;
     }
 }

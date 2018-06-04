@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+	public static Connect bdd;
+	
 	public static int width = 1280;
 	public static int height = 720;
 
@@ -54,15 +56,15 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-		launch(args);
 		try {
-			new Connect("~/BaseDD", "user", "");
-			System.out.println("co rï¿½ussie");
+			bdd = new Connect("./src/application/database/database","root", "root");
+			System.out.println("Base de données connecté !");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		launch(args);
 	}
 
 }

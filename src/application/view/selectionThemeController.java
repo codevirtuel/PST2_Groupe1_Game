@@ -1,6 +1,7 @@
 package application.view;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -42,10 +45,8 @@ public class selectionThemeController {
 	@FXML
 	public void initialize() {
 		Scaler.updateSize(Main.width,vbox);
-		checkDirectory();
-		checkThemeFolder("test");
-		loadThemeScore();
 		try {
+			loadThemeScore("Theme test");
 			populateThemeList();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -53,58 +54,14 @@ public class selectionThemeController {
 		}
 	}
 	
-	public void checkDirectory() {
-		//Check if themes directory exists, if not create
-		File themes = new File("themes");
-		if(!themes.exists()) {
-			themes.mkdir();
-			System.out.println("Theme directory was missing, create new one");
-		}	
-	}
-	
-	public boolean checkThemeFolder(String name) {
-		String PATH = "themes/"+name;
-		File theme = new File(PATH);
-		
-		if(!theme.exists()) {
-			System.out.println("The theme with name : "+name+" doesn't exists"); 
-			return false;
-		}
-			
-		//Check if the theme as a background image
-		File background = new File(PATH+"/background.png");
-		
-		if(!background.exists()) {
-			System.out.println("The theme with name : "+name+" doesn't have a background image"); 
-			return false;
-		}
-		
-		//Check if the theme as a database
-		File database = new File(PATH+"/database.db");
-		
-		if(!database.exists()) {
-			System.out.println("The theme with name : "+name+" doesn't have a database"); 
-			return false;
-		}
-		
-		return true;
-	}
-	
 	public List<String> getThemeList() throws SQLException{
 		List<String> themes = new ArrayList<String>();
-		
-		File directory = new File("themes");
-		for(File theme : directory.listFiles()) {
 			
-			//Connect to the database to request theme name
-			Connect db = new Connect(theme.getAbsolutePath()+"\\database","root","root");
-			ResultSet result = db.executeCmd("SELECT * FROM THEME");
-			while(result.next()) {
-				themes.add(result.getString("NOM_THEME"));
-			}
-			db.Disconnect();
+		//Connect to the database to request theme name
+		ResultSet result = Main.bdd.executeCmd("SELECT * FROM THEME");
+		while(result.next()) {
+			themes.add(result.getString("NOM_THEME"));
 		}
-		
 		return themes;
 	}
 	
@@ -117,25 +74,58 @@ public class selectionThemeController {
 		listeTheme.setItems(liste);
 	}
 	
-	public ObservableList<Score> loadThemeScore() {
-		ObservableList<Score> liste = FXCollections.observableArrayList(new Score("1","mdr","123"),new Score("1","mdr","123"));
+	//Récupère la site des score pour un theme
+	public ObservableList<Score> loadThemeScore(String nomTheme) throws SQLException {
+		ObservableList<Score> liste = FXCollections.observableArrayList();
+		int placement = 1;
 		
-		//liste.add(new Score("1","mdr","123"));
-		//listeScore.set
+		ResultSet result = Main.bdd.executeCmd("SELECT * FROM JOUEUR WHERE NOM_THEME="+"'"+nomTheme+"'"+" ORDER BY SCORE_JOUEUR DESC");
+		while(result.next()) {
+			liste.add(new Score(placement,result.getString("NOM_JOUEUR"),result.getInt("SCORE_JOUEUR")));
+			placement++;
+		}
+		
+		return liste;
+	}
+	
+	@FXML
+	public void showThemeScore() throws SQLException {
+		String nomTheme = listeTheme.getSelectionModel().getSelectedItem().toString();
 		
 		placement.setCellValueFactory(new PropertyValueFactory<Score,String>("placement"));
 		joueur.setCellValueFactory(new PropertyValueFactory<Score,String>("nomJoueur"));
 		score.setCellValueFactory(new PropertyValueFactory<Score,String>("score"));
 		
-		listeScore.setItems(liste);
+		listeScore.setItems(loadThemeScore(nomTheme));
+		
 		listeScore.setFixedCellSize(5);
 		listeScore.prefHeightProperty().bind(Bindings.size(listeScore.getItems()).multiply(listeScore.getFixedCellSize()).add(30));
-		System.out.println(listeScore);
-		return liste;
-		
-		
 	}
 	
+	//---- Switch scene ----
+	@FXML 
+	public void goToAccueil() throws IOException {
+		VBox root = new VBox();
+		accueilController.primaryStage = primaryStage;
+		root = FXMLLoader.load(getClass().getResource("Jeu - Accueil.fxml"));
+		Scene scene = new Scene(root,Main.width,Main.height);
+		
+		primaryStage.setResizable(false);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+	
+	@FXML
+	public void goToGame() throws IOException {
+		VBox root = new VBox();
+		gameController.primaryStage = primaryStage;
+		root = FXMLLoader.load(getClass().getResource("pageDeJeu.fxml"));
+		Scene scene = new Scene(root,Main.width,Main.height);
+		
+		primaryStage.setResizable(false);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
 	
 	
 }
