@@ -42,20 +42,13 @@
                   <Insets right="20.0" />
                </padding>
             </Label>
-            <Label prefHeight="17.0" prefWidth="24.0" text="x%">
             <Label fx:id="currentVolume" prefHeight="18.0" prefWidth="48.0" text="x%">
-=======
->>>>>>> theoDaudin
                <padding>
                   <Insets right="5.0" />
                </padding>
             </Label>
-            <Slider prefWidth="200.0" />
-            <Label prefHeight="17.0" prefWidth="36.0" text="100%">
             <Slider fx:id="slider" onMouseClicked="#updateVolume" onMouseDragged="#updateVolume" prefWidth="200.0" />
             <Label prefHeight="18.0" prefWidth="46.0" text="100%">
-=======
->>>>>>> theoDaudin
                <padding>
                   <Insets right="5.0" />
                </padding>
