@@ -1,6 +1,7 @@
 package application.gestionThemes;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Score {
 	private final SimpleStringProperty placement;
@@ -12,6 +13,10 @@ public class Score {
 		this.nomJoueur = new SimpleStringProperty(nomJoueur);
 		this.score = new SimpleStringProperty(String.valueOf(score));
 	}
+
+	public StringProperty placementProperty() {
+		return placement;
+	}
 	
 	public String getPlacement() {
         return placement.get();
@@ -20,12 +25,21 @@ public class Score {
         this.placement.set(placement);
     }
         
+    
+    public StringProperty joueurProperty() {
+		return nomJoueur;
+	}
+    
     public String getNomJoueur() {
         return nomJoueur.get();
     }
     public void setNomJoueur(String nomJoueur) {
         this.nomJoueur.set(nomJoueur);
     }
+    
+    public StringProperty scoreProperty() {
+		return score;
+	}
     
     public String getScore() {
         return score.get();

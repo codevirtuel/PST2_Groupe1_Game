@@ -1,6 +1,5 @@
 package application.view;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,9 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import application.Main;
-import application.database.Connect;
 import application.gestionThemes.Score;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,29 +28,34 @@ public class selectionThemeController {
 	VBox vbox;
 	
 	@FXML
-	ListView listeTheme;
+	ListView<String> listeTheme;
 	
 	@FXML
 	TableView<Score> listeScore;
 	@FXML
-	TableColumn<Score, String> placement;
+	TableColumn<Score, String> placementCol;
 	@FXML
-	TableColumn<Score, String> joueur;
+	TableColumn<Score, String> joueurCol;
 	@FXML
-	TableColumn<Score, String> score;
+	TableColumn<Score, String> scoreCol;
 	
 	@FXML
 	public void initialize() {
+		placementCol.setCellValueFactory(cellData -> cellData.getValue().placementProperty());
+		joueurCol.setCellValueFactory(cellData -> cellData.getValue().joueurProperty());
+		scoreCol.setCellValueFactory(cellData -> cellData.getValue().scoreProperty());
+		
+		listeScore.setFixedCellSize(30);
+		
 		Scaler.updateSize(Main.width,vbox);
 		try {
-			loadThemeScore("Theme test");
 			populateThemeList();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	//Récupère la liste des thèmes
 	public List<String> getThemeList() throws SQLException{
 		List<String> themes = new ArrayList<String>();
 			
@@ -88,21 +90,16 @@ public class selectionThemeController {
 		return liste;
 	}
 	
+	//Actualise la liste des scores
 	@FXML
 	public void showThemeScore() throws SQLException {
 		String nomTheme = listeTheme.getSelectionModel().getSelectedItem().toString();
 		
-		placement.setCellValueFactory(new PropertyValueFactory<Score,String>("placement"));
-		joueur.setCellValueFactory(new PropertyValueFactory<Score,String>("nomJoueur"));
-		score.setCellValueFactory(new PropertyValueFactory<Score,String>("score"));
-		
 		listeScore.setItems(loadThemeScore(nomTheme));
-		
-		listeScore.setFixedCellSize(5);
-		listeScore.prefHeightProperty().bind(Bindings.size(listeScore.getItems()).multiply(listeScore.getFixedCellSize()).add(30));
 	}
 	
 	//---- Switch scene ----
+	
 	@FXML 
 	public void goToAccueil() throws IOException {
 		VBox root = new VBox();
