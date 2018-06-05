@@ -1,5 +1,6 @@
 package application.view;
 
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -74,15 +75,17 @@ public class gameController {
 		//Load background
 		result = Main.bdd.executeCmd("SELECT * FROM THEME WHERE NOM_THEME="+"'"+nomTheme+"'");
 		while(result.next()) {
-			String URL = "./src/application/data/";
-			if(result.getString("URL_IMAGE") != null) {
-				URL += result.getString("URL_IMAGE");
-			}else {
+			String URL = "File:./src/application/data/";
+			File image = new File(URL + result.getString("URL_IMAGE"));
+			if(result.getString("URL_IMAGE") == null || !image.exists()) {
 				URL += "480x270.png";
+			}else {
+				URL += result.getString("URL_IMAGE");
 			}
-			theme.setImageFond(new Image("./src/application/data/"+result.getString(URL)));
+			System.out.println(URL);
+			theme.setImageFond(new Image(URL));
 		}
-		
+		background.setImage(theme.getImageFond());
 		
 	}
 	
