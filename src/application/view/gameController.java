@@ -10,6 +10,8 @@ public class gameController {
 
 	public static Stage primaryStage;
 	
+	public static String nomTheme;
+	
 	@FXML VBox vbox;
 	
 	@FXML
