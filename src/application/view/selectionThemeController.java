@@ -116,6 +116,8 @@ public class selectionThemeController {
 	public void goToGame() throws IOException {
 		VBox root = new VBox();
 		gameController.primaryStage = primaryStage;
+		gameController.nomTheme = listeTheme.getSelectionModel().getSelectedItem().toString();
+		
 		root = FXMLLoader.load(getClass().getResource("pageDeJeu.fxml"));
 		Scene scene = new Scene(root,Main.width,Main.height);
 		
