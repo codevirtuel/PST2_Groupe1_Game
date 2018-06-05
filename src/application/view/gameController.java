@@ -77,12 +77,12 @@ public class gameController {
 		while(result.next()) {
 			String URL = "File:./src/application/data/";
 			File image = new File(URL + result.getString("URL_IMAGE"));
-			if(result.getString("URL_IMAGE") == null || !image.exists()) {
+			if(result.getString("URL_IMAGE") == null) {
 				URL += "480x270.png";
 			}else {
 				URL += result.getString("URL_IMAGE");
 			}
-			System.out.println(URL);
+
 			theme.setImageFond(new Image(URL));
 		}
 		background.setImage(theme.getImageFond());
