@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.finPartieController">
+<VBox fx:id="vbox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.finPartieController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="725.0" text="- Fin de partie -">
          <font>
-            <Font name="Gabriola" size="36.0" />
+            <Font name="AR BERKLEY" size="24.0" />
          </font>
       </Label>
       <AnchorPane fx:id="anchor" prefHeight="299.0" prefWidth="620.0">

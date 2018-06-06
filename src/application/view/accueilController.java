@@ -34,32 +34,6 @@ public class accueilController {
 		primaryStage.show();
 	}
 	
-	@FXML 
-	public void goToThemeSelection() throws IOException {
-		VBox root = new VBox();
-		selectionThemeController.primaryStage = primaryStage;
-		root = FXMLLoader.load(getClass().getResource("Selection - Theme.fxml"));
-		Scene scene = new Scene(root,Main.width,Main.height);
-		
-		primaryStage.setResizable(false);
-
-		primaryStage.setScene(scene);
-		primaryStage.show();
-	}
-	
-	@FXML 
-	public void goToCredits() throws IOException {
-		VBox root = new VBox();
-		creditController.primaryStage = primaryStage;
-		root = FXMLLoader.load(getClass().getResource("credit.fxml"));
-		Scene scene = new Scene(root,Main.width,Main.height);
-		
-		primaryStage.setResizable(false);
-
-		primaryStage.setScene(scene);
-		primaryStage.show();
-	}
-	
 	@FXML
 	public void quitter() {
 		primaryStage.close();

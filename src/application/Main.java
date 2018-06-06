@@ -1,9 +1,6 @@
 package application;
 
-import java.io.File;
 import java.sql.SQLException;
-
-import org.ini4j.Ini;
 
 import application.database.Connect;
 import application.view.accueilController;
@@ -11,16 +8,12 @@ import application.view.finPartieController;
 import application.view.gameController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
-	public static Connect bdd;
-	
 	public static int width = 1280;
 	public static int height = 720;
 
@@ -29,15 +22,9 @@ public class Main extends Application {
 
 		try {
 			VBox root = new VBox();
-			
-			//Check if config file is here
-			File saveFile = new File("options.ini");
-			if(saveFile.exists()) {
-				Ini ini = new Ini(saveFile);
-				width = ini.get("resolution","width",int.class);
-				height = ini.get("resolution","height",int.class);
-			}
-			
+
+			// gameController.primaryStage = primaryStage;
+			// finPartieController.primaryStage = primaryStage;
 			accueilController.primaryStage = primaryStage;
 			root = FXMLLoader.load(getClass().getResource("view/Jeu - Accueil.fxml"));
 			Scene scene = new Scene(root, width, height);
@@ -45,26 +32,22 @@ public class Main extends Application {
 
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
-			
-			primaryStage.centerOnScreen();
 			primaryStage.show();
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void main(String[] args) {
+		launch(args);
 		try {
-			bdd = new Connect("./src/application/database/database","root", "root");
-			System.out.println("Base de données connecté !");
+			new Connect("~/BaseDD", "user", "");
+			System.out.println("co rï¿½ussie");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		launch(args);
+
 	}
 
 }

@@ -11,7 +11,7 @@
 
 <VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.accueilController">
    <children>
-      <ImageView fitHeight="158.0" fitWidth="423.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="200.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@logo.png" />
          </image>
@@ -23,7 +23,7 @@
       </Label>
       <HBox alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="40.0">
          <children>
-            <Button mnemonicParsing="false" onMouseClicked="#goToThemeSelection" prefHeight="60.0" prefWidth="150.0" text="Jouer">
+            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="150.0" text="Jouer">
                <font>
                   <Font size="15.0" />
                </font>
@@ -40,7 +40,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" onMouseClicked="#goToCredits" prefHeight="60.0" prefWidth="100.0" text="Crédits">
+            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="100.0" text="Crédits">
                <font>
                   <Font size="15.0" />
                </font>
