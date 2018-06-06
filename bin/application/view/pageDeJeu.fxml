@@ -22,7 +22,7 @@
       </Label>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <ImageView fitHeight="270.0" fitWidth="480.0" pickOnBounds="true">
+            <ImageView fx:id="background" fitHeight="270.0" fitWidth="480.0" pickOnBounds="true">
                <image>
                   <Image url="@480x270.png" />
                </image></ImageView>

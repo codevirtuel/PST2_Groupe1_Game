@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import application.Main;
@@ -13,7 +14,9 @@ import application.gestionThemes.Zone;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class gameController {
@@ -22,10 +25,12 @@ public class gameController {
 	public static String nomTheme;
 	
 	private Theme theme = new Theme(nomTheme);
+	private List<Zone> reponses;
+	private Question questionEnCours;
 	
 	@FXML VBox vbox;
 	
-	@FXML ImageView background;
+	@FXML AnchorPane background;
 	
 	@FXML
 	public void initialize() {
@@ -85,8 +90,16 @@ public class gameController {
 
 			theme.setImageFond(new Image(URL));
 		}
-		background.setImage(theme.getImageFond());
+		//background.setImage(theme.getImageFond());
 		
 	}
 	
+	public void valider() {
+		for(Zone zone : reponses)
+			if(!questionEnCours.getReponses().contains(zone)) {
+				zone.setStroke(Color.RED);
+			}
+		for(Zone zone : questionEnCours.getReponses())
+			zone.setStroke(Color.GREEN);
+	}
 }
