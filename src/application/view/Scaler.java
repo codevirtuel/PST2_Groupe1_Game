@@ -25,13 +25,19 @@ import javafx.scene.text.Text;
 
 public class Scaler {
 	
+	private static double factor = 1;
+	
 	public static void updateSize(double newWidth,Pane root) {		
-		double factor = newWidth/640;
+		factor = newWidth/640;
 		ArrayList<Node> nodes = getAllNodes(root);
 		for(Node node : nodes) {
 			scale(node,factor);
 		}
 		scale(root,factor);
+	}
+	
+	public static double getFactor() {
+		return factor;	
 	}
 	
 	public static void scale(Node obj, double factor) {

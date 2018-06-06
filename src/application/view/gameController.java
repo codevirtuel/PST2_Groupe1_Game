@@ -102,9 +102,16 @@ public class gameController {
 	
 	public void showZones() {
 		for(Zone z : theme.getZones()) {
-			Polygon poly = new Polygon();
-			poly.getPoints().setAll(z.getPoints());
-			image.getChildren().add(poly);
+			double factor = Scaler.getFactor();
+			for(int i=0;i<z.getPoints().size();i++) {
+				z.getPoints().set(i, z.getPoints().get(i)*factor);
+			}
+			
+			z.setOpacity(2.0);
+			z.setFill(Color.RED);
+			z.setStroke(Color.BLACK);
+			z.setStrokeWidth(1);
+			image.getChildren().add(z);
 		}
 		System.out.println(image.getChildren());
 	}
