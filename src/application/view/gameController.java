@@ -1,5 +1,6 @@
 package application.view;
 
+import java.awt.Paint;
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,15 @@ import application.gestionThemes.Zone;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
 public class gameController {
@@ -25,7 +34,7 @@ public class gameController {
 	
 	@FXML VBox vbox;
 	
-	@FXML ImageView background;
+	@FXML AnchorPane image;
 	
 	@FXML
 	public void initialize() {
@@ -35,9 +44,10 @@ public class gameController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		showZones();
 	}
 	
-	
+	//Charge le thème via la classe Thème
 	public void loadTheme() throws SQLException {	
 		//Load zones
 		ResultSet result = Main.bdd.executeCmd("SELECT * FROM ZONE WHERE NOM_THEME="+"'"+nomTheme+"'");
@@ -85,8 +95,18 @@ public class gameController {
 
 			theme.setImageFond(new Image(URL));
 		}
-		background.setImage(theme.getImageFond());
-		
+		BackgroundImage bgImage = new BackgroundImage(theme.getImageFond(),
+				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(480, 270, false, false, false, true));
+		image.setBackground(new Background(bgImage));
+	}
+	
+	public void showZones() {
+		for(Zone z : theme.getZones()) {
+			Polygon poly = new Polygon();
+			poly.getPoints().setAll(z.getPoints());
+			image.getChildren().add(poly);
+		}
+		System.out.println(image.getChildren());
 	}
 	
 }
