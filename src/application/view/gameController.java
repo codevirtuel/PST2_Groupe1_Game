@@ -126,12 +126,28 @@ public class gameController {
 			}
 			z.setId(""+z.getIndex());
 			z.setOpacity(2.0);
-			z.setFill(Color.RED);
+			
+			if(selectedZone.contains(z))
+				z.setFill(Color.GREEN);
+			else
+				z.setFill(Color.RED);
+			
 			z.setStroke(Color.BLACK);
 			z.setStrokeWidth(1);
 			image.getChildren().add(z);
 		}
 		System.out.println(image.getChildren());
+	}
+	
+	public void removeZones() {
+		for(Zone z : theme.getZones()) {
+			image.getChildren().remove(z);
+		}
+	}
+	
+	public void updateZones() {
+		removeZones();
+		showZones();
 	}
 	
 	@FXML
@@ -148,6 +164,7 @@ public class gameController {
 			else
 				selectedZone.add(correspondingZone);
 		}
+		updateZones();
 	}
 	
 }
