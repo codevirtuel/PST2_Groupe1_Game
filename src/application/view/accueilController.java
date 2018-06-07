@@ -1,11 +1,13 @@
 package application.view;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -20,6 +22,7 @@ public class accueilController {
 	public void initialize() {
 		Scaler.updateSize(Main.width,vbox);
 	}
+
 	
 	@FXML 
 	public void goToSettings() throws IOException {

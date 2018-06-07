@@ -22,7 +22,7 @@
       </Label>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <ImageView fitHeight="270.0" fitWidth="480.0" pickOnBounds="true">
+            <ImageView fx:id="background" fitHeight="270.0" fitWidth="480.0" pickOnBounds="true">
                <image>
                   <Image url="@480x270.png" />
                </image></ImageView>
@@ -56,7 +56,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: red;" text="Quitter">
+                  <Button mnemonicParsing="false" onMouseClicked="#pop" prefWidth="100.0" style="-fx-background-color: red;" text="Quitter">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>

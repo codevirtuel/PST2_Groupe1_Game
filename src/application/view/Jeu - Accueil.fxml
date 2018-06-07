@@ -16,7 +16,7 @@
             <Image url="@logo.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" prefHeight="45.0" prefWidth="695.0" text="- jeu de question avec sélection de zones -">
+      <Label alignment="CENTER" prefHeight="45.0" prefWidth="640.0" text="- jeu de question avec sélection de zones -">
          <font>
             <Font size="24.0" />
          </font>

@@ -39,7 +39,7 @@ public class Main extends Application {
 			}
 			
 			accueilController.primaryStage = primaryStage;
-			root = FXMLLoader.load(getClass().getResource("view/Jeu - Accueil.fxml"));
+			root = FXMLLoader.load(getClass().getResource("view/pageDeJeu.fxml"));
 			Scene scene = new Scene(root, width, height);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
