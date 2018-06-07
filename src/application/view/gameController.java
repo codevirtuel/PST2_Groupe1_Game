@@ -21,6 +21,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
@@ -135,9 +136,17 @@ public class gameController {
 	
 	@FXML
 	public void clickOnZone(MouseEvent e) {
+		for(Zone z : selectedZone) {
+			System.out.println(z);
+		}
 		String index = e.getPickResult().getIntersectedNode().getId();
 		if(!index.equals("image")) {
 			System.out.println("Polygon detected!");
+			Zone correspondingZone = theme.getZoneWithID(Integer.valueOf(index));
+			if(selectedZone.contains(correspondingZone))
+				selectedZone.remove(correspondingZone);
+			else
+				selectedZone.add(correspondingZone);
 		}
 	}
 	
