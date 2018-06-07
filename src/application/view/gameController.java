@@ -5,6 +5,7 @@ import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import application.Main;
@@ -12,6 +13,7 @@ import application.gestionThemes.Question;
 import application.gestionThemes.Theme;
 import application.gestionThemes.Zone;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -21,10 +23,8 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
 public class gameController {
@@ -36,9 +36,15 @@ public class gameController {
 	
 	private List<Zone> selectedZone = new ArrayList<Zone>();
 	
+	private List<Question> listQuestions = new ArrayList<Question>();
+	private Question questionActuelle;
+	
 	@FXML VBox vbox;
 	
 	@FXML AnchorPane image;
+	
+	@FXML Label intituleQuestion;
+	@FXML Label numeroQuestion;
 	
 	@FXML
 	public void initialize() {
@@ -49,6 +55,10 @@ public class gameController {
 			e.printStackTrace();
 		}
 		showZones();
+		listQuestions = theme.getQuestions();
+		Collections.shuffle(listQuestions);
+		questionActuelle = listQuestions.get(0);
+		showQuestion(questionActuelle);
 	}
 	
 	//Charge le thème via la classe Thème
@@ -118,6 +128,9 @@ public class gameController {
 	    return imageView.snapshot(null, null);
 	}
 	
+	
+	//-- gestion zone --
+	
 	public void showZones() {
 		for(Zone z : theme.getZones()) {
 			double factor = Scaler.getFactor();
@@ -136,7 +149,6 @@ public class gameController {
 			z.setStrokeWidth(1);
 			image.getChildren().add(z);
 		}
-		System.out.println(image.getChildren());
 	}
 	
 	public void removeZones() {
@@ -152,19 +164,58 @@ public class gameController {
 	
 	@FXML
 	public void clickOnZone(MouseEvent e) {
-		for(Zone z : selectedZone) {
-			System.out.println(z);
-		}
 		String index = e.getPickResult().getIntersectedNode().getId();
 		if(!index.equals("image")) {
-			System.out.println("Polygon detected!");
 			Zone correspondingZone = theme.getZoneWithID(Integer.valueOf(index));
 			if(selectedZone.contains(correspondingZone))
 				selectedZone.remove(correspondingZone);
 			else
 				selectedZone.add(correspondingZone);
+			
+			if(selectedZone.size() > theme.getQuestions().size()) {
+				selectedZone.remove(0);
+			}
 		}
 		updateZones();
 	}
+	
+	//-- gestion questions --
+	public void showQuestion(Question question) {
+		//intitulé
+		intituleQuestion.setText(question.getIntitule());
+	}
+	
+	public List<Zone> getAnwsers(Question question) throws SQLException{
+		List<Zone> retour = new ArrayList<Zone>();
+		
+		ResultSet result = Main.bdd.executeCmd("SELECT * FROM QUESTION WHERE NOM_THEME="+"'"+nomTheme+"'");
+		int questionId = 0;
+		while(result.next()) {
+			questionId = result.getInt("ID_QUESTION");
+		}
+		
+		result = Main.bdd.executeCmd("SELECT * FROM REPONSE WHERE ID_QUESTION="+questionId);
+		while(result.next()) {
+			retour.add(theme.getZoneWithID(result.getInt("ID_ZONE")));
+		}
+		
+		return retour;
+	}
+	
+	public boolean isAnwserCorrect(Question question) throws SQLException {
+		if(getAnwsers(question).equals(selectedZone)) return true;
+		else return false;
+	}
+	
+	@FXML
+	public void valider() {
+		try {
+			System.out.println(isAnwserCorrect(questionActuelle));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 }

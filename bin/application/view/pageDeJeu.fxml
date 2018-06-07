@@ -11,7 +11,7 @@
 
 <VBox fx:id="vbox" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.gameController">
    <children>
-      <Label prefHeight="21.0" prefWidth="649.0" text="Label">
+      <Label fx:id="intituleQuestion" prefHeight="21.0" prefWidth="649.0" text="Label">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
@@ -47,7 +47,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: lightgreen;" text="Valider">
+                  <Button mnemonicParsing="false" onMouseClicked="#valider" prefWidth="100.0" style="-fx-background-color: lightgreen;" text="Valider">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -68,7 +68,7 @@
                   <Font name="Arial" size="18.0" />
                </font>
             </Label>
-            <Label prefWidth="50.0" text="Label">
+            <Label fx:id="numeroQuestion" prefWidth="50.0" text="Label">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>
