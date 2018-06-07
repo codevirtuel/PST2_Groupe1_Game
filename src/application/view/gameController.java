@@ -104,7 +104,7 @@ public class gameController {
 		for(Zone z : theme.getZones()) {
 			double factor = Scaler.getFactor();
 			for(int i=0;i<z.getPoints().size();i++) {
-				z.getPoints().set(i, z.getPoints().get(i)*factor);
+				z.getPoints().set(i, z.getPoints().get(i));
 			}
 			
 			z.setOpacity(2.0);
