@@ -37,11 +37,10 @@ public class gameController {
 
 	@FXML VBox vbox;
 
-<<<<<<< HEAD
+
 	@FXML AnchorPane background;
-=======
+
 	@FXML AnchorPane image;
->>>>>>> Alexis_Poupelin
 
 	@FXML
 	public void initialize() {
@@ -102,10 +101,9 @@ public class gameController {
 
 			theme.setImageFond(new Image(URL));
 		}
-<<<<<<< HEAD
+
 		//background.setImage(theme.getImageFond());
 
-=======
 		BackgroundImage bgImage = new BackgroundImage(theme.getImageFond(),
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(480, 270, false, false, false, true));
 		image.setBackground(new Background(bgImage));
@@ -118,7 +116,6 @@ public class gameController {
 			image.getChildren().add(poly);
 		}
 		System.out.println(image.getChildren());
->>>>>>> Alexis_Poupelin
 	}
 
 	public void valider() {
