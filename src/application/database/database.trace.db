@@ -418,9 +418,15 @@ Column "./src/application/data/img.png" not found [42122-197]
 	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
 	at com.sun.glass.ui.win.WinApplication.lambda$null$147(WinApplication.java:177)
 	at java.lang.Thread.run(Unknown Source)
+<<<<<<< HEAD
 2018-06-07 17:55:13 database: flush
 org.h2.message.DbException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]"
 General error: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
+=======
+2018-06-07 16:47:50 database: flush
+org.h2.message.DbException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
+>>>>>>> Alexis_Poupelin
 	at org.h2.message.DbException.get(DbException.java:168)
 	at org.h2.message.DbException.convert(DbException.java:307)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:95)
@@ -458,18 +464,32 @@ General error: "java.lang.IllegalStateException: The file is locked: nio:H:/git/
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
 	at java.lang.reflect.Method.invoke(Unknown Source)
 	at sun.launcher.LauncherHelper$FXHelper.main(Unknown Source)
+<<<<<<< HEAD
 Caused by: org.h2.jdbc.JdbcSQLException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]"
 General error: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
 	... 37 more
 Caused by: java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]
+=======
+Caused by: org.h2.jdbc.JdbcSQLException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 37 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]
+>>>>>>> Alexis_Poupelin
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:870)
 	at org.h2.mvstore.FileStore.open(FileStore.java:173)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:350)
 	... 31 more
+<<<<<<< HEAD
 2018-06-07 17:55:38 database: flush
 org.h2.message.DbException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]"
 General error: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
+=======
+2018-06-07 17:47:37 database: flush
+org.h2.message.DbException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
+>>>>>>> Alexis_Poupelin
 	at org.h2.message.DbException.get(DbException.java:168)
 	at org.h2.message.DbException.convert(DbException.java:307)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:95)
@@ -507,18 +527,32 @@ General error: "java.lang.IllegalStateException: The file is locked: nio:H:/git/
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
 	at java.lang.reflect.Method.invoke(Unknown Source)
 	at sun.launcher.LauncherHelper$FXHelper.main(Unknown Source)
+<<<<<<< HEAD
 Caused by: org.h2.jdbc.JdbcSQLException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]"
 General error: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
 	... 37 more
 Caused by: java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]
+=======
+Caused by: org.h2.jdbc.JdbcSQLException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 37 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]
+>>>>>>> Alexis_Poupelin
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:870)
 	at org.h2.mvstore.FileStore.open(FileStore.java:173)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:350)
 	... 31 more
+<<<<<<< HEAD
 2018-06-07 17:56:29 database: flush
 org.h2.message.DbException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]"
 General error: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
+=======
+2018-06-07 17:48:33 database: flush
+org.h2.message.DbException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
+>>>>>>> Alexis_Poupelin
 	at org.h2.message.DbException.get(DbException.java:168)
 	at org.h2.message.DbException.convert(DbException.java:307)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:95)
@@ -556,18 +590,32 @@ General error: "java.lang.IllegalStateException: The file is locked: nio:H:/git/
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
 	at java.lang.reflect.Method.invoke(Unknown Source)
 	at sun.launcher.LauncherHelper$FXHelper.main(Unknown Source)
+<<<<<<< HEAD
 Caused by: org.h2.jdbc.JdbcSQLException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]"
 General error: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
 	... 37 more
 Caused by: java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]
+=======
+Caused by: org.h2.jdbc.JdbcSQLException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 37 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]
+>>>>>>> Alexis_Poupelin
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:870)
 	at org.h2.mvstore.FileStore.open(FileStore.java:173)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:350)
 	... 31 more
+<<<<<<< HEAD
 2018-06-07 18:57:52 database: flush
 org.h2.message.DbException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]"
 General error: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
+=======
+2018-06-07 18:40:10 database: flush
+org.h2.message.DbException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
+>>>>>>> Alexis_Poupelin
 	at org.h2.message.DbException.get(DbException.java:168)
 	at org.h2.message.DbException.convert(DbException.java:307)
 	at org.h2.mvstore.db.MVTableEngine$1.uncaughtException(MVTableEngine.java:95)
@@ -605,6 +653,7 @@ General error: "java.lang.IllegalStateException: The file is locked: nio:H:/git/
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
 	at java.lang.reflect.Method.invoke(Unknown Source)
 	at sun.launcher.LauncherHelper$FXHelper.main(Unknown Source)
+<<<<<<< HEAD
 Caused by: org.h2.jdbc.JdbcSQLException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]"
 General error: "java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
@@ -2129,7 +2178,20 @@ General error: "java.lang.IllegalStateException: The file is locked: nio:H:/git/
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
 	... 37 more
 Caused by: java.lang.IllegalStateException: The file is locked: nio:H:/git/PST2_Groupe1_Game3/src/application/database/database.mv.db [1.4.197/7]
+=======
+Caused by: org.h2.jdbc.JdbcSQLException: Erreur générale: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]"
+General error: "java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]" [50000-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	... 37 more
+Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/codev/git/PST2_Groupe1_Game6/src/application/database/database.mv.db [1.4.197/7]
+>>>>>>> Alexis_Poupelin
 	at org.h2.mvstore.DataUtils.newIllegalStateException(DataUtils.java:870)
 	at org.h2.mvstore.FileStore.open(FileStore.java:173)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:350)
 	... 31 more
+<<<<<<< HEAD
+=======
+2018-06-07 19:33:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT DISTRINC * FROM REPONSE INNER JOIN QUESTION ON REPONSE.ID_QUESTION=REPONSE.ID_QUESTION[*]"; expected "(, ., [, ::, *, /, %, +, -, ||, ~, !~, NOT, LIKE, ILIKE, REGEXP, IS, IN, BETWEEN, AND, OR, RIGHT, LEFT, FULL, INNER, JOIN, CROSS, NATURAL, ,, SELECT"; SQL statement:
+SELECT DISTRINC * FROM REPONSE INNER JOIN QUESTION ON REPONSE.ID_QUESTION=REPONSE.ID_QUESTION [42001-196]
+>>>>>>> Alexis_Poupelin

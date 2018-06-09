@@ -11,7 +11,7 @@
 
 <VBox fx:id="vbox" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.gameController">
    <children>
-      <Label prefHeight="21.0" prefWidth="649.0" text="Label">
+      <Label fx:id="intituleQuestion" prefHeight="21.0" prefWidth="649.0" text="Label">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
@@ -19,10 +19,10 @@
             <Insets left="5.0" top="5.0" />
          </VBox.margin>
       </Label>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox>
          <children>
-            <AnchorPane fx:id="image" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="270.0" prefWidth="480.0" />
-            <VBox alignment="CENTER" prefHeight="346.0" prefWidth="152.0">
+            <AnchorPane fx:id="image" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickOnZone" prefHeight="270.0" prefWidth="480.0" />
+            <VBox alignment="CENTER" prefHeight="260.0" prefWidth="150.0">
                <children>
                   <Label alignment="CENTER" prefHeight="30.0" prefWidth="230.0" text="Score" underline="true">
                      <font>
@@ -47,7 +47,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: lightgreen;" text="Valider">
+                  <Button mnemonicParsing="false" onMouseClicked="#valider" prefWidth="100.0" style="-fx-background-color: lightgreen;" text="Valider">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -61,14 +61,14 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER_LEFT">
          <children>
             <Label prefWidth="80.0" text="Question ">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>
             </Label>
-            <Label prefWidth="50.0" text="Label">
+            <Label fx:id="numeroQuestion" prefWidth="50.0" text="Label">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>
@@ -90,7 +90,7 @@
             </Label>
          </children>
          <padding>
-            <Insets left="10.0" />
+            <Insets left="10.0" top="10.0" />
          </padding>
       </HBox>
    </children>

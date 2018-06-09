@@ -21,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -29,7 +30,6 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
 public class gameController {
@@ -38,16 +38,32 @@ public class gameController {
 	public static String nomTheme;
 
 	private Theme theme = new Theme(nomTheme);
+<<<<<<< HEAD
 	private List<Zone> reponses;
 	private Question questionEnCours;
 
+=======
+
+	private List<Zone> selectedZone = new ArrayList<Zone>();
+
+	private List<Question> listQuestions = new ArrayList<Question>();
+	private Question questionActuelle;
+
+>>>>>>> Alexis_Poupelin
 	@FXML VBox vbox;
 
 
 	@FXML AnchorPane background;
 
 	@FXML AnchorPane image;
+<<<<<<< HEAD
 
+=======
+
+	@FXML Label intituleQuestion;
+	@FXML Label numeroQuestion;
+
+>>>>>>> Alexis_Poupelin
 	@FXML
 	public void initialize() {
 		Scaler.updateSize(Main.width,vbox);
@@ -57,6 +73,10 @@ public class gameController {
 			e.printStackTrace();
 		}
 		showZones();
+		listQuestions = theme.getQuestions();
+		Collections.shuffle(listQuestions);
+		questionActuelle = listQuestions.get(0);
+		showQuestion(questionActuelle);
 	}
 
 	//Charge le th�me via la classe Th�me
@@ -107,6 +127,7 @@ public class gameController {
 
 			theme.setImageFond(new Image(URL));
 		}
+<<<<<<< HEAD
 
 		//background.setImage(theme.getImageFond());
 
@@ -115,14 +136,84 @@ public class gameController {
 		image.setBackground(new Background(bgImage));
 	}
 
+=======
+		double factor = Scaler.getFactor();
+		int imageWidth = (int) (480*factor);
+		int imageHeight = (int) (270*factor);
+
+		Image newImage = scale(theme.getImageFond(),imageWidth,imageHeight,false);
+
+		BackgroundImage bgImage = new BackgroundImage(newImage,
+				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(480, 270, false, false, false, true));
+		image.setBackground(new Background(bgImage));
+	}
+
+	public Image scale(Image source, int targetWidth, int targetHeight, boolean preserveRatio) {
+	    ImageView imageView = new ImageView(source);
+	    imageView.setPreserveRatio(preserveRatio);
+	    imageView.setFitWidth(targetWidth);
+	    imageView.setFitHeight(targetHeight);
+	    return imageView.snapshot(null, null);
+	}
+
+
+	//-- gestion zone --
+
+>>>>>>> Alexis_Poupelin
 	public void showZones() {
 		for(Zone z : theme.getZones()) {
-			Polygon poly = new Polygon();
-			poly.getPoints().setAll(z.getPoints());
-			image.getChildren().add(poly);
+			double factor = Scaler.getFactor();
+			for(int i=0;i<z.getPoints().size();i++) {
+				z.getPoints().set(i, z.getPoints().get(i));
+			}
+			z.setId(""+z.getIndex());
+			z.setOpacity(2.0);
+
+			if(selectedZone.contains(z))
+				z.setFill(Color.GREEN);
+			else
+				z.setFill(Color.RED);
+
+			z.setStroke(Color.BLACK);
+			z.setStrokeWidth(1);
+			image.getChildren().add(z);
 		}
-		System.out.println(image.getChildren());
 	}
+
+	public void removeZones() {
+		for(Zone z : theme.getZones()) {
+			image.getChildren().remove(z);
+		}
+	}
+
+	public void updateZones() {
+		removeZones();
+		showZones();
+	}
+
+	@FXML
+	public void clickOnZone(MouseEvent e) {
+		String index = e.getPickResult().getIntersectedNode().getId();
+		if(!index.equals("image")) {
+			Zone correspondingZone = theme.getZoneWithID(Integer.valueOf(index));
+			if(selectedZone.contains(correspondingZone))
+				selectedZone.remove(correspondingZone);
+			else
+				selectedZone.add(correspondingZone);
+
+			if(selectedZone.size() > theme.getQuestions().size()) {
+				selectedZone.remove(0);
+			}
+		}
+		updateZones();
+	}
+
+	//-- gestion questions --
+	public void showQuestion(Question question) {
+		//intitul�
+		intituleQuestion.setText(question.getIntitule());
+	}
+<<<<<<< HEAD
 
 	public void valider() {
 		for(Zone zone : reponses)
@@ -163,4 +254,40 @@ public class gameController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+=======
+
+	public List<Zone> getAnwsers(Question question) throws SQLException{
+		List<Zone> retour = new ArrayList<Zone>();
+
+		ResultSet result = Main.bdd.executeCmd("SELECT * FROM QUESTION WHERE NOM_THEME="+"'"+nomTheme+"'");
+		int questionId = 0;
+		while(result.next()) {
+			questionId = result.getInt("ID_QUESTION");
+		}
+
+		result = Main.bdd.executeCmd("SELECT * FROM REPONSE WHERE ID_QUESTION="+questionId);
+		while(result.next()) {
+			retour.add(theme.getZoneWithID(result.getInt("ID_ZONE")));
+		}
+
+		return retour;
+	}
+
+	public boolean isAnwserCorrect(Question question) throws SQLException {
+		if(getAnwsers(question).equals(selectedZone)) return true;
+		else return false;
+	}
+
+	@FXML
+	public void valider() {
+		try {
+			System.out.println(isAnwserCorrect(questionActuelle));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+>>>>>>> Alexis_Poupelin
 }
