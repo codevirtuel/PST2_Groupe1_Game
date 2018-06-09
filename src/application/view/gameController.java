@@ -1,12 +1,10 @@
 package application.view;
 
-import java.awt.Paint;
 import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -20,8 +18,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -38,25 +34,24 @@ public class gameController {
 	public static String nomTheme;
 
 	private Theme theme = new Theme(nomTheme);
-<<<<<<< HEAD
-	private List<Zone> reponses;
-	private Question questionEnCours;
-
-=======
 
 	private List<Zone> selectedZone = new ArrayList<Zone>();
 
 	private List<Question> listQuestions = new ArrayList<Question>();
 	private Question questionActuelle;
 
->>>>>>> Alexis_Poupelin
 	@FXML VBox vbox;
 
+=======
+	@FXML
+	VBox vbox;
+>>>>>>> Theo_Daudin
 
-	@FXML AnchorPane background;
+	@FXML
+	AnchorPane background;
 
-	@FXML AnchorPane image;
-<<<<<<< HEAD
+	@FXML
+	AnchorPane image;
 
 =======
 
@@ -66,7 +61,8 @@ public class gameController {
 >>>>>>> Alexis_Poupelin
 	@FXML
 	public void initialize() {
-		Scaler.updateSize(Main.width,vbox);
+		reponses = new ArrayList<Zone> ();
+		Scaler.updateSize(Main.width, vbox);
 		try {
 			loadTheme();
 		} catch (SQLException e) {
@@ -79,49 +75,49 @@ public class gameController {
 		showQuestion(questionActuelle);
 	}
 
-	//Charge le th�me via la classe Th�me
+	// Charge le th�me via la classe Theme
 	public void loadTheme() throws SQLException {
-		//Load zones
-		ResultSet result = Main.bdd.executeCmd("SELECT * FROM ZONE WHERE NOM_THEME="+"'"+nomTheme+"'");
-		while(result.next()) {
+		// Load zones
+		ResultSet result = Main.bdd.executeCmd("SELECT * FROM ZONE WHERE NOM_THEME=" + "'" + nomTheme + "'");
+		while (result.next()) {
 			int idZone = result.getInt("ID_ZONE");
 
-			//Query points
+			// Query points
 			List<Double> points = new ArrayList<Double>();
-			ResultSet result2 = Main.bdd.executeCmd("SELECT * FROM POINT WHERE ID_ZONE="+idZone);
-			while(result2.next()) {
+			ResultSet result2 = Main.bdd.executeCmd("SELECT * FROM POINT WHERE ID_ZONE=" + idZone);
+			while (result2.next()) {
 				points.add(result2.getDouble("POS_X"));
 				points.add(result2.getDouble("POS_Y"));
 			}
-			theme.addZone(new Zone(idZone,points));
+			theme.addZone(new Zone(idZone, points));
 		}
 
-		//Load questions
-		result = Main.bdd.executeCmd("SELECT * FROM QUESTION WHERE NOM_THEME="+"'"+nomTheme+"'");
+		// Load questions
+		result = Main.bdd.executeCmd("SELECT * FROM QUESTION WHERE NOM_THEME=" + "'" + nomTheme + "'");
 
-		while(result.next()) {
+		while (result.next()) {
 			int questionId = result.getInt("ID_QUESTION");
 			String questionIntitule = result.getString("INTITULE_QUESTION");
 			List<Zone> questionZone = new ArrayList<Zone>();
 
-			ResultSet result2 = Main.bdd.executeCmd("SELECT * FROM REPONSE WHERE ID_QUESTION="+questionId);
-			while(result2.next()) {
-				if(theme.getZoneWithID(result2.getInt("ID_ZONE")) != null) {
+			ResultSet result2 = Main.bdd.executeCmd("SELECT * FROM REPONSE WHERE ID_QUESTION=" + questionId);
+			while (result2.next()) {
+				if (theme.getZoneWithID(result2.getInt("ID_ZONE")) != null) {
 					questionZone.add(theme.getZoneWithID(result2.getInt("ID_ZONE")));
 				}
 			}
 
-			theme.addQuestion(new Question(questionIntitule,questionZone));
+			theme.addQuestion(new Question(questionIntitule, questionZone));
 		}
 
-		//Load background
-		result = Main.bdd.executeCmd("SELECT * FROM THEME WHERE NOM_THEME="+"'"+nomTheme+"'");
-		while(result.next()) {
+		// Load background
+		result = Main.bdd.executeCmd("SELECT * FROM THEME WHERE NOM_THEME=" + "'" + nomTheme + "'");
+		while (result.next()) {
 			String URL = "File:./src/application/data/";
 			File image = new File(URL + result.getString("URL_IMAGE"));
-			if(result.getString("URL_IMAGE") == null) {
+			if (result.getString("URL_IMAGE") == null) {
 				URL += "480x270.png";
-			}else {
+			} else {
 				URL += result.getString("URL_IMAGE");
 			}
 
@@ -129,10 +125,11 @@ public class gameController {
 		}
 <<<<<<< HEAD
 
-		//background.setImage(theme.getImageFond());
+		// background.setImage(theme.getImageFond());
 
-		BackgroundImage bgImage = new BackgroundImage(theme.getImageFond(),
-				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(480, 270, false, false, false, true));
+		BackgroundImage bgImage = new BackgroundImage(theme.getImageFond(), BackgroundRepeat.NO_REPEAT,
+				BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
+				new BackgroundSize(480, 270, false, false, false, true));
 		image.setBackground(new Background(bgImage));
 	}
 
@@ -161,49 +158,13 @@ public class gameController {
 
 >>>>>>> Alexis_Poupelin
 	public void showZones() {
-		for(Zone z : theme.getZones()) {
-			double factor = Scaler.getFactor();
-			for(int i=0;i<z.getPoints().size();i++) {
-				z.getPoints().set(i, z.getPoints().get(i));
-			}
-			z.setId(""+z.getIndex());
-			z.setOpacity(2.0);
-
-			if(selectedZone.contains(z))
-				z.setFill(Color.GREEN);
-			else
-				z.setFill(Color.RED);
-
-			z.setStroke(Color.BLACK);
+		for (Zone z : theme.getZones()) {
 			z.setStrokeWidth(1);
+			z.setStroke(Color.BLACK);
+			z.setFill(Color.rgb((int) Math.random() * 100 + 155, (int) Math.random() * 100 + 155,
+					(int) Math.random() * 100 + 155, 0.2));
+			z.setOnMouseClicked(event -> selectionZone(z));
 			image.getChildren().add(z);
-		}
-	}
-
-	public void removeZones() {
-		for(Zone z : theme.getZones()) {
-			image.getChildren().remove(z);
-		}
-	}
-
-	public void updateZones() {
-		removeZones();
-		showZones();
-	}
-
-	@FXML
-	public void clickOnZone(MouseEvent e) {
-		String index = e.getPickResult().getIntersectedNode().getId();
-		if(!index.equals("image")) {
-			Zone correspondingZone = theme.getZoneWithID(Integer.valueOf(index));
-			if(selectedZone.contains(correspondingZone))
-				selectedZone.remove(correspondingZone);
-			else
-				selectedZone.add(correspondingZone);
-
-			if(selectedZone.size() > theme.getQuestions().size()) {
-				selectedZone.remove(0);
-			}
 		}
 		updateZones();
 	}
@@ -213,15 +174,29 @@ public class gameController {
 		//intitul�
 		intituleQuestion.setText(question.getIntitule());
 	}
-<<<<<<< HEAD
+
+	public void selectionZone(Zone zone) {
+		if (zone != null)
+			if (!reponses.contains(zone)) {
+				reponses.add(zone);
+				zone.setStroke(Color.rgb(215, 215, (int) (Math.random()*40+215)));
+				zone.setStrokeWidth(3);
+			}
+			else {
+				reponses.remove(zone);
+				zone.setStroke(Color.BLACK);
+				zone.setStrokeWidth(1);
+			}
+	}
 
 	public void valider() {
-		for(Zone zone : reponses)
-			if(!questionEnCours.getReponses().contains(zone)) {
+		for (Zone zone : reponses)
+			if (!questionEnCours.getReponses().contains(zone)) {
 				zone.setStroke(Color.RED);
 			}
-		for(Zone zone : questionEnCours.getReponses())
+		for (Zone zone : questionEnCours.getReponses())
 			zone.setStroke(Color.GREEN);
+		reponses = new ArrayList<Zone> ();
 	}
 
 	@FXML
@@ -254,40 +229,4 @@ public class gameController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-=======
-
-	public List<Zone> getAnwsers(Question question) throws SQLException{
-		List<Zone> retour = new ArrayList<Zone>();
-
-		ResultSet result = Main.bdd.executeCmd("SELECT * FROM QUESTION WHERE NOM_THEME="+"'"+nomTheme+"'");
-		int questionId = 0;
-		while(result.next()) {
-			questionId = result.getInt("ID_QUESTION");
-		}
-
-		result = Main.bdd.executeCmd("SELECT * FROM REPONSE WHERE ID_QUESTION="+questionId);
-		while(result.next()) {
-			retour.add(theme.getZoneWithID(result.getInt("ID_ZONE")));
-		}
-
-		return retour;
-	}
-
-	public boolean isAnwserCorrect(Question question) throws SQLException {
-		if(getAnwsers(question).equals(selectedZone)) return true;
-		else return false;
-	}
-
-	@FXML
-	public void valider() {
-		try {
-			System.out.println(isAnwserCorrect(questionActuelle));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-
->>>>>>> Alexis_Poupelin
 }
