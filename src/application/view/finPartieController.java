@@ -3,7 +3,6 @@ package application.view;
 import application.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
