@@ -2,17 +2,23 @@ package application.view;
 
 import java.awt.Paint;
 import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import application.Main;
 import application.gestionThemes.Question;
 import application.gestionThemes.Theme;
 import application.gestionThemes.Zone;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -125,5 +131,36 @@ public class gameController {
 			}
 		for(Zone zone : questionEnCours.getReponses())
 			zone.setStroke(Color.GREEN);
+	}
+
+	@FXML
+	public void pop( ) throws IOException {
+	    String[] Quitter = {"Revenir au jeu", "Quitter"};
+	    JOptionPane jop = new JOptionPane();
+	    jop.setBounds(50, 50, 200, 200);
+	    int rang = jop.showOptionDialog(null, "Etes-vous s�r de vouloir arr�ter de jouer, si vous quitter la \n partie, la progression de votre partie sera effac� et  \n vous serez redirig� vers l'acceuil. ",
+	      "QUITTEZ LA PARTIE : ",
+	      JOptionPane.YES_NO_OPTION,
+	      JOptionPane.QUESTION_MESSAGE,
+	      null,
+	      Quitter,
+	      Quitter[1]);
+	    //if(rang == 0){
+	//    }
+//	    if(rang==1){
+//	    	goToAccueil();
+//	    }
+	}
+
+
+	public void goToAccueil() throws IOException {
+		VBox root = new VBox();
+		accueilController.primaryStage = primaryStage;
+		root = FXMLLoader.load(getClass().getResource("Jeu - Accueil.fxml"));
+		Scene scene = new Scene(root,Main.width,Main.height);
+
+		primaryStage.setResizable(false);
+		primaryStage.setScene(scene);
+		primaryStage.show();
 	}
 }
