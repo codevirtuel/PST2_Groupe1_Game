@@ -52,7 +52,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onMouseClicked="#pop" prefWidth="100.0" style="-fx-background-color: red;" text="Quitter">
+                  <Button mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: red;" text="Quitter">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
