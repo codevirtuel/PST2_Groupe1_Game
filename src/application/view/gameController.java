@@ -4,6 +4,8 @@ import java.awt.Paint;
 import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -63,8 +65,28 @@ public class gameController {
 	
 	//Charge le thème via la classe Thème
 	public void loadTheme() throws SQLException {	
+		//Load background
+		ResultSet result = Main.bdd.executeCmd("SELECT * FROM THEME WHERE NOM_THEME="+"'"+nomTheme+"'");
+				while(result.next()) {
+					String URL = "File:./src/application/data/";
+					File image = new File(URL + result.getString("URL_IMAGE"));
+					if(result.getString("URL_IMAGE") == null) {
+						URL += "480x270.png";
+					}else {
+						URL += result.getString("URL_IMAGE");
+					}
+
+					theme.setImageFond(new Image(URL));
+				}
+				
 		//Load zones
-		ResultSet result = Main.bdd.executeCmd("SELECT * FROM ZONE WHERE NOM_THEME="+"'"+nomTheme+"'");
+		
+		double factorb = Scaler.getFactor() % 1;
+		double factorX = theme.getImageFond().getWidth()/image.getPrefWidth() - factorb;
+		double factorY = theme.getImageFond().getHeight()/image.getPrefHeight() % 1;
+		System.out.println("factorX : "+factorX+"  factorY : "+factorY);
+		
+		result = Main.bdd.executeCmd("SELECT * FROM ZONE WHERE NOM_THEME="+"'"+nomTheme+"'");
 		while(result.next()) {
 			int idZone = result.getInt("ID_ZONE");
 			
@@ -72,8 +94,8 @@ public class gameController {
 			List<Double> points = new ArrayList<Double>();
 			ResultSet result2 = Main.bdd.executeCmd("SELECT * FROM POINT WHERE ID_ZONE="+idZone);
 			while(result2.next()) {
-				points.add(result2.getDouble("POS_X"));
-				points.add(result2.getDouble("POS_Y"));
+				points.add(result2.getDouble("POS_X")*factorX);
+				points.add(result2.getDouble("POS_Y")*1.01);
 			}
 			theme.addZone(new Zone(idZone,points));
 		}
@@ -96,27 +118,16 @@ public class gameController {
 			theme.addQuestion(new Question(questionIntitule,questionZone));
 		}
 		
-		//Load background
-		result = Main.bdd.executeCmd("SELECT * FROM THEME WHERE NOM_THEME="+"'"+nomTheme+"'");
-		while(result.next()) {
-			String URL = "File:./src/application/data/";
-			File image = new File(URL + result.getString("URL_IMAGE"));
-			if(result.getString("URL_IMAGE") == null) {
-				URL += "480x270.png";
-			}else {
-				URL += result.getString("URL_IMAGE");
-			}
-
-			theme.setImageFond(new Image(URL));
-		}
+		
 		double factor = Scaler.getFactor();
+		System.out.println(factor);
 		int imageWidth = (int) (480*factor);
 		int imageHeight = (int) (270*factor);
 		
 		Image newImage = scale(theme.getImageFond(),imageWidth,imageHeight,false);
 		
 		BackgroundImage bgImage = new BackgroundImage(newImage,
-				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(480, 270, false, false, false, true));
+				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(imageWidth, imageHeight, false, false, false, true));
 		image.setBackground(new Background(bgImage));
 	}
 	
@@ -133,9 +144,9 @@ public class gameController {
 	
 	public void showZones() {
 		for(Zone z : theme.getZones()) {
-			double factor = Scaler.getFactor();
-			for(int i=0;i<z.getPoints().size();i++) {
-				z.getPoints().set(i, z.getPoints().get(i));
+			
+			for(int i=0;i < z.getPoints().size();i++) {
+				System.out.println(z.getPoints().get(i));
 			}
 			z.setId(""+z.getIndex());
 			z.setOpacity(2.0);
@@ -149,6 +160,11 @@ public class gameController {
 			z.setStrokeWidth(1);
 			image.getChildren().add(z);
 		}
+	}
+	
+	public double map(double x, double in_min, double in_max, double out_min, double out_max)
+	{
+	  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 	}
 	
 	public void removeZones() {
@@ -215,6 +231,11 @@ public class gameController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	public void showXY(MouseEvent e) {
+		System.out.println(e.getX()+" "+e.getY());
 	}
 	
 	

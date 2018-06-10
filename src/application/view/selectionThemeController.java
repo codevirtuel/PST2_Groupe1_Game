@@ -121,7 +121,7 @@ public class selectionThemeController {
 		root = FXMLLoader.load(getClass().getResource("pageDeJeu.fxml"));
 		Scene scene = new Scene(root,Main.width,Main.height);
 		
-		primaryStage.setResizable(false);
+		primaryStage.setResizable(true);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

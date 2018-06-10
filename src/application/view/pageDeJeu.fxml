@@ -21,7 +21,7 @@
       </Label>
       <HBox>
          <children>
-            <AnchorPane fx:id="image" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickOnZone" prefHeight="270.0" prefWidth="480.0" />
+            <AnchorPane fx:id="image" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickOnZone" prefHeight="270.0" prefWidth="480.0" />
             <VBox alignment="CENTER" prefHeight="260.0" prefWidth="150.0">
                <children>
                   <Label alignment="CENTER" prefHeight="30.0" prefWidth="230.0" text="Score" underline="true">
