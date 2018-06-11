@@ -6,6 +6,9 @@ import java.util.List;
 
 import application.Main;
 import application.gestionThemes.Question;
+import application.gestionThemes.Score;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -39,6 +42,7 @@ public class finPartieController {
 	public void initialize() {
 		Scaler.updateSize(Main.width,vbox);
 		afficherNbBonnesReponces();
+		afficherListe();
 	}
 	
 	@FXML
@@ -54,7 +58,18 @@ public class finPartieController {
 	
 	@FXML
 	public void afficherListe() {
-		
+		ObservableList<String> liste = FXCollections.observableArrayList();
+		for(int i=0;i<listQuestions.size();i++) {
+			String text = listQuestions.get(i).getIntitule()+"								";
+			if(reponseQuestions.get(i)) {
+				text += "true";
+			}
+			else {
+				text += "false";
+			}
+			liste.add(text);
+		}
+		list.setItems(liste);
 	}
 	
 	@FXML 
