@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import application.Main;
 import application.gestionThemes.Question;
 import application.gestionThemes.Theme;
@@ -49,6 +51,8 @@ public class gameController {
 	int scoreActuel = 0;
 	private int idQuestion = 0;
 
+	@FXML 
+	VBox vbox;
 	@FXML
 	Label intituleQuestion;
 	@FXML
@@ -60,6 +64,9 @@ public class gameController {
 	@FXML
 	Label score;
 
+	@FXML 
+	AnchorPane image;
+	
 	public void initialize() {
 		Scaler.updateSize(Main.width, vbox);
 		try {
@@ -258,7 +265,8 @@ public class gameController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+	}
+		
 	public void pop( ) throws IOException {
 	    String[] Quitter = {"Revenir au jeu", "Quitter"};
 	    JOptionPane jop = new JOptionPane();
@@ -281,6 +289,19 @@ public class gameController {
 		VBox root = new VBox();
 		finPartieController.primaryStage = primaryStage;
 		root = FXMLLoader.load(getClass().getResource("finDePartie.fxml"));
+		Scene scene = new Scene(root,Main.width,Main.height);
+
+		primaryStage.setResizable(false);
+
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+	
+	@FXML
+	public void goToAccueil() throws IOException {
+		VBox root = new VBox();
+		accueilController.primaryStage = primaryStage;
+		root = FXMLLoader.load(getClass().getResource("Jeu - Accueil.fxml"));
 		Scene scene = new Scene(root,Main.width,Main.height);
 
 		primaryStage.setResizable(false);
