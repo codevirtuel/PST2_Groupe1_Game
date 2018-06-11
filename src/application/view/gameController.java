@@ -2,6 +2,7 @@ package application.view;
 
 import java.awt.Paint;
 import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -15,6 +16,8 @@ import application.gestionThemes.Question;
 import application.gestionThemes.Theme;
 import application.gestionThemes.Zone;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,7 +42,9 @@ public class gameController {
 	private List<Zone> selectedZone = new ArrayList<Zone>();
 	
 	private List<Question> listQuestions = new ArrayList<Question>();
+	private List<Boolean> reponseQuestions = new ArrayList<Boolean>();
 	private Question questionActuelle;
+	private int idQuestion = 0;
 	
 	@FXML VBox vbox;
 	
@@ -59,7 +64,7 @@ public class gameController {
 		showZones();
 		listQuestions = theme.getQuestions();
 		Collections.shuffle(listQuestions);
-		questionActuelle = listQuestions.get(0);
+		questionActuelle = listQuestions.get(idQuestion);
 		showQuestion(questionActuelle);
 	}
 	
@@ -80,11 +85,9 @@ public class gameController {
 				}
 				
 		//Load zones
-		
-		double factorb = Scaler.getFactor() % 1;
-		double factorX = theme.getImageFond().getWidth()/image.getPrefWidth() - factorb;
-		double factorY = theme.getImageFond().getHeight()/image.getPrefHeight() % 1;
-		System.out.println("factorX : "+factorX+"  factorY : "+factorY);
+				
+		double factor = Main.width/1280.0;
+		System.out.println("Factor : "+factor);	
 		
 		result = Main.bdd.executeCmd("SELECT * FROM ZONE WHERE NOM_THEME="+"'"+nomTheme+"'");
 		while(result.next()) {
@@ -94,8 +97,8 @@ public class gameController {
 			List<Double> points = new ArrayList<Double>();
 			ResultSet result2 = Main.bdd.executeCmd("SELECT * FROM POINT WHERE ID_ZONE="+idZone);
 			while(result2.next()) {
-				points.add(result2.getDouble("POS_X")*factorX);
-				points.add(result2.getDouble("POS_Y")*1.01);
+				points.add(result2.getDouble("POS_X")*factor);
+				points.add(result2.getDouble("POS_Y")*factor);
 			}
 			theme.addZone(new Zone(idZone,points));
 		}
@@ -119,35 +122,27 @@ public class gameController {
 		}
 		
 		
-		double factor = Scaler.getFactor();
-		System.out.println(factor);
-		int imageWidth = (int) (480*factor);
-		int imageHeight = (int) (270*factor);
+		double height = image.getPrefHeight(), width = image.getPrefWidth(), rapport = height / width;
+		if (theme.getImageFond().getWidth()
+				* rapport > theme.getImageFond().getHeight()) {
+			height = width * theme.getImageFond().getHeight()
+					/ theme.getImageFond().getWidth();
+			image.setPrefHeight(height);
+		} else {
+			width = height * theme.getImageFond().getWidth()
+					/ theme.getImageFond().getHeight();
+			image.setPrefWidth(width);
+		}
 		
-		Image newImage = scale(theme.getImageFond(),imageWidth,imageHeight,false);
-		
-		BackgroundImage bgImage = new BackgroundImage(newImage,
-				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(imageWidth, imageHeight, false, false, false, true));
+		BackgroundImage bgImage = new BackgroundImage(theme.getImageFond(),
+				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(width, height, false, false, false, true));
 		image.setBackground(new Background(bgImage));
 	}
-	
-	public Image scale(Image source, int targetWidth, int targetHeight, boolean preserveRatio) {
-	    ImageView imageView = new ImageView(source);
-	    imageView.setPreserveRatio(preserveRatio);
-	    imageView.setFitWidth(targetWidth);
-	    imageView.setFitHeight(targetHeight);
-	    return imageView.snapshot(null, null);
-	}
-	
 	
 	//-- gestion zone --
 	
 	public void showZones() {
 		for(Zone z : theme.getZones()) {
-			
-			for(int i=0;i < z.getPoints().size();i++) {
-				System.out.println(z.getPoints().get(i));
-			}
 			z.setId(""+z.getIndex());
 			z.setOpacity(2.0);
 			
@@ -160,11 +155,6 @@ public class gameController {
 			z.setStrokeWidth(1);
 			image.getChildren().add(z);
 		}
-	}
-	
-	public double map(double x, double in_min, double in_max, double out_min, double out_max)
-	{
-	  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 	}
 	
 	public void removeZones() {
@@ -224,18 +214,42 @@ public class gameController {
 	}
 	
 	@FXML
-	public void valider() {
+	public void valider() throws IOException {
 		try {
 			System.out.println(isAnwserCorrect(questionActuelle));
+			reponseQuestions.add(isAnwserCorrect(questionActuelle));
+			idQuestion++;
+			System.out.println("Next id : "+idQuestion);
+			if(idQuestion+1 <= listQuestions.size()) {
+				questionActuelle = listQuestions.get(idQuestion);
+				showQuestion(questionActuelle);
+				selectedZone.clear();
+				removeZones();
+				showZones();
+			}else {
+				System.out.println("Thème terminé !");
+				finPartieController.listQuestions = listQuestions;
+				finPartieController.reponseQuestions = reponseQuestions;
+				goToFin();
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	@FXML
-	public void showXY(MouseEvent e) {
-		System.out.println(e.getX()+" "+e.getY());
+	@FXML 
+	public void goToFin() throws IOException {
+		VBox root = new VBox();
+		finPartieController.primaryStage = primaryStage;
+		root = FXMLLoader.load(getClass().getResource("finDePartie.fxml"));
+		Scene scene = new Scene(root,Main.width,Main.height);
+		
+		primaryStage.setResizable(false);
+
+		primaryStage.setScene(scene);
+		primaryStage.show();
 	}
 	
 	
