@@ -7,14 +7,10 @@ import org.ini4j.Ini;
 
 import application.database.Connect;
 import application.view.accueilController;
-import application.view.finPartieController;
-import application.view.gameController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -39,7 +35,7 @@ public class Main extends Application {
 			}
 			
 			accueilController.primaryStage = primaryStage;
-			root = FXMLLoader.load(getClass().getResource("view/pageDeJeu.fxml"));
+			root = FXMLLoader.load(getClass().getResource("view/Jeu - Accueil.fxml"));
 			Scene scene = new Scene(root, width, height);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 

@@ -100,18 +100,17 @@ public class gameController {
 	    String[] Quitter = {"Revenir au jeu", "Quitter"};
 	    JOptionPane jop = new JOptionPane();
 	    jop.setBounds(50, 50, 200, 200);
-	    int rang = jop.showOptionDialog(null, "Etes-vous sûr de vouloir arrêter de jouer, si vous quitter la \n partie, la progression de votre partie sera effacé et  \n vous serez redirigé vers l'acceuil. ",
+	    int rang = JOptionPane.showOptionDialog(null, "Etes-vous sûr de vouloir arrêter de jouer, si vous quitter la \n partie, la progression de votre partie sera effacé et  \n vous serez redirigé vers l'acceuil. ",
 	      "QUITTEZ LA PARTIE : ",
 	      JOptionPane.YES_NO_OPTION,
 	      JOptionPane.QUESTION_MESSAGE,
 	      null,
 	      Quitter,
 	      Quitter[1]); 
-	    //if(rang == 0){
-	//    }
-//	    if(rang==1){
-//	    	goToAccueil();
-//	    }
+	    if(rang == 0){}
+	    if(rang==1){
+	    	goToAccueil();
+	    }
 	}
 	
 

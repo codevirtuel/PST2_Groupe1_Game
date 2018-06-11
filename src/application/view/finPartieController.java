@@ -1,12 +1,15 @@
 package application.view;
 
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
+import java.io.File;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Optional;
 
 import application.Main;
-import javafx.event.ActionEvent;
+import application.gestionThemes.Theme;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -14,7 +17,7 @@ import javafx.stage.Stage;
 public class finPartieController {
 	
 	public static Stage primaryStage;
-	
+	public static Theme nomTheme;
 	@FXML
 	VBox vbox;
 	
@@ -30,21 +33,22 @@ public class finPartieController {
 	}
 	
 	@FXML
-	public void pop( ) {
-//		 JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-//		 String nom = jop.showInputDialog(null, "Username : ", "Enregistrez-vous ",JOptionPane.DEFAULT_OPTION);
-//		    jop2.showMessageDialog(null, "Votre score est bien sauvegardé, " + nom, "Sauvegarde réussi", JOptionPane.INFORMATION_MESSAGE);
-//		
-	    String[] sauvegarde = {"Enregistrez", "Annuler"};
-	    JOptionPane jop = new JOptionPane(), jop2 = new JOptionPane();
-	    int rang = jop.showOptionDialog(null, "Username :",
-	      "Enregistrez-vous !",
-	      JOptionPane.YES_NO_CANCEL_OPTION,
-	      JOptionPane.QUESTION_MESSAGE,
-	      null,
-	      sauvegarde,
-	      sauvegarde[1]);
-	    
-	    jop2.showMessageDialog(null, "MERCI D'AVOIR JOUER" , "Sauvegarde réussi", JOptionPane.INFORMATION_MESSAGE);
+	public void pop( ) throws SQLException {
+
+		TextInputDialog nomJoueur = new TextInputDialog("");
+		nomJoueur.setTitle("Enregistrez le score");
+		nomJoueur.setHeaderText("Entrez votre nom ");
+		nomJoueur.setGraphic(null);
+		nomJoueur.setContentText("Pseudo :");
+	
+		Optional<String> textIn = nomJoueur.showAndWait();
+		if (textIn.isPresent()) {
+			System.out.println("INSERT INTO JOUEUR(SCORE_JOUEUR, TEMPS_JOUEUR, NOM_THEME, NOM_JOUEUR)"
+					+ "VALUES(" + 0 + "," + 0 + "," + "'" + nomTheme.getNom() + "'" + "," + "'" + textIn.get() + "'"
+					+ ")");
+//			ResultSet result = Main.bdd.executeCmd("INSERT INTO JOUEUR(SCORE_JOUEUR, TEMPS_JOUEUR, NOM_THEME, NOM_JOUEUR) "
+//					+ " VALUES ("+0+ "," + 0 + "," + "'" + nomTheme.getNom() +"'"+ "," + "'"+ textIn.get()+ "' "+")");
+			}
 	}
 }
+
