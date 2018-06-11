@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.gameController">
+<VBox fx:id="vbox" alignment="CENTER" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.gameController">
    <children>
-      <Label fx:id="intituleQuestion" prefHeight="21.0" prefWidth="649.0" text="Label">
+      <Label fx:id="intituleQuestion" prefHeight="50.0" prefWidth="635.0" text="Label">
          <font>
             <Font name="Arial" size="18.0" />
          </font>
@@ -19,9 +19,9 @@
             <Insets left="5.0" top="5.0" />
          </VBox.margin>
       </Label>
-      <HBox>
+      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="640.0">
          <children>
-            <AnchorPane fx:id="image" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickOnZone" prefHeight="270.0" prefWidth="480.0" />
+            <AnchorPane fx:id="image" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickOnZone" prefHeight="200.0" prefWidth="400.0" />
             <VBox alignment="CENTER" prefHeight="260.0" prefWidth="150.0">
                <children>
                   <Label alignment="CENTER" prefHeight="30.0" prefWidth="230.0" text="Score" underline="true">
@@ -58,10 +58,13 @@
                      </VBox.margin>
                   </Button>
                </children>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT">
+      <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="640.0">
          <children>
             <Label prefWidth="80.0" text="Question ">
                <font>
@@ -90,7 +93,7 @@
             </Label>
          </children>
          <padding>
-            <Insets left="10.0" top="10.0" />
+            <Insets left="10.0" />
          </padding>
       </HBox>
    </children>
