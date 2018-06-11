@@ -234,6 +234,7 @@ public class gameController {
 	}
 
 	@FXML
+
 	public void valider() throws IOException {
 		try {
 			System.out.println(isAnwserCorrect(questionActuelle));
@@ -257,6 +258,22 @@ public class gameController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+	public void pop( ) throws IOException {
+	    String[] Quitter = {"Revenir au jeu", "Quitter"};
+	    JOptionPane jop = new JOptionPane();
+	    jop.setBounds(50, 50, 200, 200);
+	    int rang = JOptionPane.showOptionDialog(null, "Etes-vous s�r de vouloir arr�ter de jouer, si vous quitter la \n partie, la progression de votre partie sera effac� et  \n vous serez redirig� vers l'acceuil. ",
+	      "QUITTEZ LA PARTIE : ",
+	      JOptionPane.YES_NO_OPTION,
+	      JOptionPane.QUESTION_MESSAGE,
+	      null,
+	      Quitter,
+	      Quitter[1]);
+	    if(rang == 0){}
+	    if(rang==1){
+	    	goToAccueil();
+	    }
 	}
 
 	@FXML
