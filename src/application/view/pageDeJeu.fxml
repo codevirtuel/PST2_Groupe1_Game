@@ -29,7 +29,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="236.0" text="Label">
+                  <Label fx:id="score" alignment="CENTER" prefHeight="27.0" prefWidth="236.0" text="Label">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -73,7 +73,7 @@
                   <Font name="Arial" size="18.0" />
                </font>
             </Label>
-            <ProgressBar prefWidth="200.0" progress="0.0">
+            <ProgressBar fx:id="progression" prefWidth="200.0" progress="0.0">
                <HBox.margin>
                   <Insets left="15.0" right="10.0" />
                </HBox.margin>
@@ -83,7 +83,7 @@
                   <Font name="Arial" size="18.0" />
                </font>
             </Label>
-            <Label prefWidth="100.0" text="\% effectués">
+            <Label fx:id="pourcentage" prefWidth="100.0" text="\% effectués">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>
