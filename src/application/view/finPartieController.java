@@ -57,7 +57,7 @@ public class finPartieController {
 	@FXML
 	public void afficherNbBonnesReponces() {
 		String modele1 = "Vous avez ";
-		String modele2 = " bonnes rï¿½ponces";
+		String modele2 = " bonnes réponces";
 		int nb = 0;
 		for(boolean b : reponseQuestions) {
 			if(b) nb++;

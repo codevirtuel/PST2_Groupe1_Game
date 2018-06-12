@@ -31,6 +31,8 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -42,12 +44,11 @@ public class gameController {
 	private Theme theme = new Theme(nomTheme);
 
 	private List<Zone> selectedZone = new ArrayList<Zone>();
-	public int nbQuestion = theme.getQuestions().size();
-	//public int nbQuestion = 5;
+	private int nbQuestion;
 	private List<Question> listQuestions = new ArrayList<Question>();
 	private List<Boolean> reponseQuestions = new ArrayList<Boolean>();
 	private Question questionActuelle;
-	double avancement = 1.0 / nbQuestion;
+	double avancement;
 	int scoreActuel = 0;
 	private int idQuestion = 0;
 
@@ -79,13 +80,18 @@ public class gameController {
 		Collections.shuffle(listQuestions);
 		questionActuelle = listQuestions.get(idQuestion);
 		showQuestion(questionActuelle);
+		
+		nbQuestion = theme.getQuestions().size();
+		avancement = 1.0 / nbQuestion;
+		System.out.println(theme.getQuestions().size());
 		progression.setProgress(0);
 		progression.setStyle("-fx-accent: green;");
-		pourcentage.setText((int) (progression.getProgress() * 100) + " % effectuï¿½s");
+		pourcentage.setText((int) (progression.getProgress() * 100) + " % effectués");
 		score.setText((scoreActuel) + " / " + nbQuestion);
+		numeroQuestion.setText(""+(idQuestion+1));
 	}
 
-	//Charge le thï¿½me via la classe Thï¿½me
+	//Charge le thème via la classe Thème
 	public void loadTheme() throws SQLException {
 		//Load background
 		ResultSet result = Main.bdd.executeCmd("SELECT * FROM THEME WHERE NOM_THEME="+"'"+nomTheme+"'");
@@ -227,42 +233,41 @@ public class gameController {
 
 	public boolean isAnwserCorrect(Question question) throws SQLException {
 		if (getAnwsers(question).equals(selectedZone)) {
-			if (progression.getProgress() < 1) {
-				progression.setProgress(progression.getProgress() + avancement);
-				pourcentage.setText((int) (progression.getProgress() * 100) + " % effectuï¿½s");
-				scoreActuel += 1;
-				score.setText((scoreActuel) + " / " + nbQuestion);
-			}
-
 			return true;
 		} else
 			return false;
-
 	}
 
 	@FXML
 
-	public void valider() throws IOException {
+	public void valider() throws IOException, InterruptedException {
 		try {
 			System.out.println(isAnwserCorrect(questionActuelle));
 			reponseQuestions.add(isAnwserCorrect(questionActuelle));
+			try {
+				showIcon(isAnwserCorrect(questionActuelle));
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			idQuestion++;
-			System.out.println("Next id : "+idQuestion);
+			
 			if(idQuestion+1 <= listQuestions.size()) {
+				numeroQuestion.setText(""+(idQuestion+1));
 				questionActuelle = listQuestions.get(idQuestion);
 				showQuestion(questionActuelle);
 				selectedZone.clear();
 				removeZones();
 				showZones();
+				updateProgression();
 			}else {
-				System.out.println("Thï¿½me terminï¿½ !");
+				System.out.println("Thème terminé !");
 				finPartieController.listQuestions = listQuestions;
 				finPartieController.reponseQuestions = reponseQuestions;
 				goToFin();
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -282,6 +287,46 @@ public class gameController {
 	    if(rang==1){
 	    	goToAccueil();
 	    }
+	}
+	
+	public void updateProgression() {
+		//Progress bar
+		double progress = (idQuestion)*avancement;
+		progression.setProgress(progress);
+		
+		//Progress text
+		pourcentage.setText((int) (progression.getProgress() * 100) + " % effectués");
+		
+		//Score text
+		int nbTrueQuestions = 0;
+		for(Boolean b : reponseQuestions) {
+			if(b == true) nbTrueQuestions++;
+		}
+		score.setText(nbTrueQuestions + " / " + nbQuestion);
+	}
+	
+	public void showIcon(boolean success) throws InterruptedException {
+		ImageView icon;
+		Media media;
+		double width = image.getPrefWidth()/2;
+		double height = image.getPrefHeight()/2;
+
+		if(success) { 
+			icon = new ImageView(new Image("File:./src/application/data/pass.png",width,height,false,true));
+			media = new Media(new File("src/application/data/pass.mp3").toURI().toString());
+		}
+		else { 
+			icon = new ImageView(new Image("File:./src/application/data/fail.png",width,height,false,true)); 
+			media = new Media(new File("src/application/data/fail.mp3").toURI().toString());
+		}
+		
+		icon.setX(width/2);
+		icon.setY(height/2);
+		MediaPlayer player = new MediaPlayer(media);
+		System.out.println(player.getMedia().getSource());
+		player.play();
+		image.getChildren().add(icon);
+		image.getChildren().remove(icon);
 	}
 
 	@FXML
