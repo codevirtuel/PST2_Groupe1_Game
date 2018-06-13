@@ -237,36 +237,22 @@ public class gameController {
 		intituleQuestion.setText(question.getIntitule());
 	}
 
-	public List<Zone> getAnwsers(Question question) throws SQLException {
-		List<Zone> retour = new ArrayList<Zone>();
-
-		ResultSet result = Main.bdd.executeCmd("SELECT * FROM QUESTION WHERE NOM_THEME=" + "'" + nomTheme + "'");
-		int questionId = 0;
-		while (result.next()) {
-			questionId = result.getInt("ID_QUESTION");
-		}
-
-		result = Main.bdd.executeCmd("SELECT * FROM REPONSE WHERE ID_QUESTION=" + questionId);
-		while (result.next()) {
-			retour.add(theme.getZoneWithID(result.getInt("ID_ZONE")));
-		}
-
-		return retour;
-	}
-
 	public boolean isAnwserCorrect(Question question) throws SQLException {
-		if (getAnwsers(question).equals(selectedZone)) {
+		if (question.getReponses().equals(selectedZone)) {
 			return true;
-		} else
+		} else {
 			return false;
+		}
 	}
 
 	@FXML
 
 	public void valider() throws IOException, InterruptedException {
 		try {
-			System.out.println(isAnwserCorrect(questionActuelle));
-			reponseQuestions.add(isAnwserCorrect(questionActuelle));
+			boolean correct = isAnwserCorrect(questionActuelle);
+			System.out.println("Correct ? : "+correct);
+			reponseQuestions.add(correct);
+			
 			idQuestion++;
 
 			if(idQuestion+1 <= listQuestions.size()) {
@@ -276,13 +262,15 @@ public class gameController {
 				selectedZone.clear();
 				removeZones();
 				showZones();
-				showIcon(isAnwserCorrect(questionActuelle));
+				showIcon(correct);
 				updateProgression();
+				s = 20;
+				chrono();
 			}else {
 				System.out.println("Th�me termin� !");
 				finPartieController.listQuestions = listQuestions;
 				finPartieController.reponseQuestions = reponseQuestions;
-				showIcon(isAnwserCorrect(questionActuelle));
+				showIcon(correct);
 				goToFin();
 			}
 
@@ -352,7 +340,15 @@ public class gameController {
 			}
 			s--;
 		}else {
-			// questionSuivante();
+			try {
+				valider();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}
