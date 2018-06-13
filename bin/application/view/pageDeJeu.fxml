@@ -26,7 +26,7 @@
                   <AnchorPane fx:id="image" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickOnZone" prefHeight="200.0" prefWidth="400.0" />
                </children>
             </HBox>
-            <VBox alignment="CENTER" prefHeight="260.0" prefWidth="150.0" style="-fx-border-color: gray;">
+            <VBox alignment="CENTER" prefHeight="260.0" prefWidth="150.0">
                <children>
                   <Label alignment="CENTER" prefHeight="30.0" prefWidth="230.0" text="Score" underline="true">
                      <font>
@@ -56,7 +56,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: red;" text="Quitter">
+                  <Button mnemonicParsing="false" onMouseClicked="#pop" prefWidth="100.0" style="-fx-background-color: red;" text="Quitter">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -68,7 +68,7 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="51.0" prefWidth="640.0" style="-fx-border-color: gray;">
+      <HBox alignment="CENTER" prefHeight="51.0" prefWidth="640.0">
          <children>
             <Label prefHeight="22.0" prefWidth="102.0" text="Question n° ">
                <font>

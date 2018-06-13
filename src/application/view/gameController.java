@@ -12,10 +12,15 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import com.sun.javafx.geom.Point2D;
+
 import application.Main;
 import application.gestionThemes.Question;
 import application.gestionThemes.Theme;
 import application.gestionThemes.Zone;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -34,7 +39,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class gameController {
 
@@ -51,6 +58,10 @@ public class gameController {
 	double avancement;
 	int scoreActuel = 0;
 	private int idQuestion = 0;
+	
+	//preload music
+	private Media MUSIC_FAIL = new Media(new File("src/application/data/fail.mp3").toURI().toString());
+	private Media MUSIC_PASS = new Media(new File("src/application/data/pass.mp3").toURI().toString());
 
 	@FXML 
 	VBox vbox;
@@ -97,8 +108,9 @@ public class gameController {
 		ResultSet result = Main.bdd.executeCmd("SELECT * FROM THEME WHERE NOM_THEME="+"'"+nomTheme+"'");
 				while(result.next()) {
 					String URL = "File:./src/application/data/";
-					File image = new File(URL + result.getString("URL_IMAGE"));
-					if(result.getString("URL_IMAGE") == null) {
+					File image = new File("src/application/data/" + result.getString("URL_IMAGE"));
+					System.out.println(image.exists());
+					if(result.getString("URL_IMAGE").equals("null") || !image.exists()) {
 						URL += "480x270.png";
 					}else {
 						URL += result.getString("URL_IMAGE");
@@ -244,12 +256,6 @@ public class gameController {
 		try {
 			System.out.println(isAnwserCorrect(questionActuelle));
 			reponseQuestions.add(isAnwserCorrect(questionActuelle));
-			try {
-				showIcon(isAnwserCorrect(questionActuelle));
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			idQuestion++;
 			
 			if(idQuestion+1 <= listQuestions.size()) {
@@ -259,11 +265,13 @@ public class gameController {
 				selectedZone.clear();
 				removeZones();
 				showZones();
+				showIcon(isAnwserCorrect(questionActuelle));
 				updateProgression();
 			}else {
 				System.out.println("Thème terminé !");
 				finPartieController.listQuestions = listQuestions;
 				finPartieController.reponseQuestions = reponseQuestions;
+				showIcon(isAnwserCorrect(questionActuelle));
 				goToFin();
 			}
 
@@ -271,7 +279,8 @@ public class gameController {
 			e.printStackTrace();
 		}
 	}
-		
+	
+	@FXML
 	public void pop( ) throws IOException {
 	    String[] Quitter = {"Revenir au jeu", "Quitter"};
 	    JOptionPane jop = new JOptionPane();
@@ -306,27 +315,40 @@ public class gameController {
 	}
 	
 	public void showIcon(boolean success) throws InterruptedException {
-		ImageView icon;
+		ImageView icon = null;
+		Image img;
 		Media media;
 		double width = image.getPrefWidth()/2;
 		double height = image.getPrefHeight()/2;
 
 		if(success) { 
-			icon = new ImageView(new Image("File:./src/application/data/pass.png",width,height,false,true));
-			media = new Media(new File("src/application/data/pass.mp3").toURI().toString());
+			img = new Image("File:./src/application/data/pass.png",width,height,true,true);
+			media = MUSIC_PASS;
 		}
 		else { 
-			icon = new ImageView(new Image("File:./src/application/data/fail.png",width,height,false,true)); 
-			media = new Media(new File("src/application/data/fail.mp3").toURI().toString());
+			img = new Image("File:./src/application/data/fail.png",width,height,true,true); 
+			media = MUSIC_FAIL;
 		}
 		
-		icon.setX(width/2);
-		icon.setY(height/2);
 		MediaPlayer player = new MediaPlayer(media);
-		System.out.println(player.getMedia().getSource());
+		icon = new ImageView(img);
+		
+		double positionX = width-img.getWidth()/2;
+		double positionY = height-img.getHeight()/2;
+		
+		System.out.println(image.getPrefWidth()+" "+image.getPrefHeight());
+		
+		icon.setX(positionX);
+		icon.setY(positionY);
+		
 		player.play();
+		Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(icon.imageProperty(), img)),
+                new KeyFrame(Duration.seconds(1), new KeyValue(icon.imageProperty(), null))
+                );
+		timeline.play();
 		image.getChildren().add(icon);
-		image.getChildren().remove(icon);
+		
 	}
 
 	@FXML
