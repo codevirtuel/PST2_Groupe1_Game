@@ -57,13 +57,12 @@ public class gameController {
 
 	public void chrono() {
 		if (s != 0) {
-			s--;
 			chronometre.setText(s + " secs");
 			if (Endgame == false) {
 				new Timeline(new KeyFrame(Duration.seconds(1), event -> chrono())).play();
 			}
-		}
-		if (s == 0) {
+			s--;
+		}else {
 			// questionSuivante();
 		}
 
@@ -132,6 +131,7 @@ public class gameController {
 		if (rang == 0) {
 		}
 		if (rang == 1) {
+			System.out.println("Vous avez quitter la partie --> Retour au menu");
 			goToAccueil();
 		}
 	}
