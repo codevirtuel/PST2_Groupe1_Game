@@ -47,7 +47,6 @@ public class gameController {
 
 	public static Stage primaryStage;
 	public static String nomTheme;
-<<<<<<< HEAD
 
 	private Theme theme = new Theme(nomTheme);
 
@@ -68,8 +67,6 @@ public class gameController {
 	VBox vbox;
 
 	public int s = 20;
-
-	private Theme theme = new Theme(nomTheme);
 	boolean Endgame = false;
 
 	@FXML
@@ -116,7 +113,6 @@ public class gameController {
 		numeroQuestion.setText(""+(idQuestion+1));
 	}
 
-<<<<<<< HEAD
 	//Charge le th�me via la classe Th�me
 	public void loadTheme() throws SQLException {
 		//Load background
@@ -293,27 +289,6 @@ public class gameController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		background.setImage(theme.getImageFond());
-	}
-
-	@FXML
-<<<<<<< HEAD
-	public void pop( ) throws IOException {
-	    String[] Quitter = {"Revenir au jeu", "Quitter"};
-	    JOptionPane jop = new JOptionPane();
-	    jop.setBounds(50, 50, 200, 200);
-	    int rang = JOptionPane.showOptionDialog(null, "Etes-vous s�r de vouloir arr�ter de jouer, si vous quitter la \n partie, la progression de votre partie sera effac� et  \n vous serez redirig� vers l'acceuil. ",
-	      "QUITTEZ LA PARTIE : ",
-	      JOptionPane.YES_NO_OPTION,
-	      JOptionPane.QUESTION_MESSAGE,
-	      null,
-	      Quitter,
-	      Quitter[1]);
-	    if(rang == 0){}
-	    if(rang==1){
-	    	goToAccueil();
-	    }
 	}
 
 	public void updateProgression() {
@@ -417,20 +392,11 @@ public class gameController {
 		VBox root = new VBox();
 		accueilController.primaryStage = primaryStage;
 		root = FXMLLoader.load(getClass().getResource("Jeu - Accueil.fxml"));
-<<<<<<< HEAD
 		Scene scene = new Scene(root,Main.width,Main.height);
-=======
-		Scene scene = new Scene(root, Main.width, Main.height);
->>>>>>> Lois_Viaud
 
 		primaryStage.setResizable(false);
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-<<<<<<< HEAD
-
-
-=======
->>>>>>> Lois_Viaud
 }
