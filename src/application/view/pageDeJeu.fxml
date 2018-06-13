@@ -46,7 +46,7 @@
                         <Font name="Arial" size="20.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="27.0" prefWidth="274.0" text="Label">
+                  <Label fx:id="chronometre" alignment="CENTER" prefHeight="27.0" prefWidth="274.0" text="Label">
                      <font>
                         <Font size="18.0" />
                      </font>

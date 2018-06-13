@@ -47,6 +47,7 @@ public class gameController {
 
 	public static Stage primaryStage;
 	public static String nomTheme;
+<<<<<<< HEAD
 
 	private Theme theme = new Theme(nomTheme);
 
@@ -58,13 +59,25 @@ public class gameController {
 	double avancement;
 	int scoreActuel = 0;
 	private int idQuestion = 0;
-	
+
 	//preload music
 	private Media MUSIC_FAIL = new Media(new File("src/application/data/fail.mp3").toURI().toString());
 	private Media MUSIC_PASS = new Media(new File("src/application/data/pass.mp3").toURI().toString());
 
-	@FXML 
+	@FXML
 	VBox vbox;
+
+	public int s = 20;
+
+	private Theme theme = new Theme(nomTheme);
+	boolean Endgame = false;
+
+	@FXML
+	Label chronometre;
+
+	@FXML
+	ImageView background;
+
 	@FXML
 	Label intituleQuestion;
 	@FXML
@@ -76,13 +89,14 @@ public class gameController {
 	@FXML
 	Label score;
 
-	@FXML 
+	@FXML
 	AnchorPane image;
-	
+
 	public void initialize() {
 		Scaler.updateSize(Main.width, vbox);
 		try {
 			loadTheme();
+			chrono();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -91,18 +105,19 @@ public class gameController {
 		Collections.shuffle(listQuestions);
 		questionActuelle = listQuestions.get(idQuestion);
 		showQuestion(questionActuelle);
-		
+
 		nbQuestion = theme.getQuestions().size();
 		avancement = 1.0 / nbQuestion;
 		System.out.println(theme.getQuestions().size());
 		progression.setProgress(0);
 		progression.setStyle("-fx-accent: green;");
-		pourcentage.setText((int) (progression.getProgress() * 100) + " % effectués");
+		pourcentage.setText((int) (progression.getProgress() * 100) + " % effectuï¿½s");
 		score.setText((scoreActuel) + " / " + nbQuestion);
 		numeroQuestion.setText(""+(idQuestion+1));
 	}
 
-	//Charge le thème via la classe Thème
+<<<<<<< HEAD
+	//Charge le thï¿½me via la classe Thï¿½me
 	public void loadTheme() throws SQLException {
 		//Load background
 		ResultSet result = Main.bdd.executeCmd("SELECT * FROM THEME WHERE NOM_THEME="+"'"+nomTheme+"'");
@@ -130,6 +145,7 @@ public class gameController {
 
 			// Query points
 			List<Double> points = new ArrayList<Double>();
+
 			ResultSet result2 = Main.bdd.executeCmd("SELECT * FROM POINT WHERE ID_ZONE="+idZone);
 			while(result2.next()) {
 				points.add(result2.getDouble("POS_X")*factor);
@@ -155,7 +171,6 @@ public class gameController {
 
 			theme.addQuestion(new Question(questionIntitule, questionZone));
 		}
-
 
 		double height = image.getPrefHeight(), width = image.getPrefWidth(), rapport = height / width;
 		if (theme.getImageFond().getWidth()
@@ -257,7 +272,7 @@ public class gameController {
 			System.out.println(isAnwserCorrect(questionActuelle));
 			reponseQuestions.add(isAnwserCorrect(questionActuelle));
 			idQuestion++;
-			
+
 			if(idQuestion+1 <= listQuestions.size()) {
 				numeroQuestion.setText(""+(idQuestion+1));
 				questionActuelle = listQuestions.get(idQuestion);
@@ -268,7 +283,7 @@ public class gameController {
 				showIcon(isAnwserCorrect(questionActuelle));
 				updateProgression();
 			}else {
-				System.out.println("Thème terminé !");
+				System.out.println("Thï¿½me terminï¿½ !");
 				finPartieController.listQuestions = listQuestions;
 				finPartieController.reponseQuestions = reponseQuestions;
 				showIcon(isAnwserCorrect(questionActuelle));
@@ -278,9 +293,12 @@ public class gameController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+		background.setImage(theme.getImageFond());
 	}
-	
+
 	@FXML
+<<<<<<< HEAD
 	public void pop( ) throws IOException {
 	    String[] Quitter = {"Revenir au jeu", "Quitter"};
 	    JOptionPane jop = new JOptionPane();
@@ -297,15 +315,15 @@ public class gameController {
 	    	goToAccueil();
 	    }
 	}
-	
+
 	public void updateProgression() {
 		//Progress bar
 		double progress = (idQuestion)*avancement;
 		progression.setProgress(progress);
-		
+
 		//Progress text
-		pourcentage.setText((int) (progression.getProgress() * 100) + " % effectués");
-		
+		pourcentage.setText((int) (progression.getProgress() * 100) + " % effectuï¿½s");
+
 		//Score text
 		int nbTrueQuestions = 0;
 		for(Boolean b : reponseQuestions) {
@@ -313,7 +331,7 @@ public class gameController {
 		}
 		score.setText(nbTrueQuestions + " / " + nbQuestion);
 	}
-	
+
 	public void showIcon(boolean success) throws InterruptedException {
 		ImageView icon = null;
 		Image img;
@@ -321,26 +339,26 @@ public class gameController {
 		double width = image.getPrefWidth()/2;
 		double height = image.getPrefHeight()/2;
 
-		if(success) { 
+		if(success) {
 			img = new Image("File:./src/application/data/pass.png",width,height,true,true);
 			media = MUSIC_PASS;
 		}
-		else { 
-			img = new Image("File:./src/application/data/fail.png",width,height,true,true); 
+		else {
+			img = new Image("File:./src/application/data/fail.png",width,height,true,true);
 			media = MUSIC_FAIL;
 		}
-		
+
 		MediaPlayer player = new MediaPlayer(media);
 		icon = new ImageView(img);
-		
+
 		double positionX = width-img.getWidth()/2;
 		double positionY = height-img.getHeight()/2;
-		
+
 		System.out.println(image.getPrefWidth()+" "+image.getPrefHeight());
-		
+
 		icon.setX(positionX);
 		icon.setY(positionY);
-		
+
 		player.play();
 		Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(icon.imageProperty(), img)),
@@ -348,8 +366,38 @@ public class gameController {
                 );
 		timeline.play();
 		image.getChildren().add(icon);
-		
+
 	}
+
+	public void chrono() {
+		if (s != 0) {
+			chronometre.setText(s + " secs");
+			if (Endgame == false) {
+				new Timeline(new KeyFrame(Duration.seconds(1), event -> chrono())).play();
+			}
+			s--;
+		}else {
+			// questionSuivante();
+		}
+
+	}
+
+	public void pop() throws IOException {
+		String[] Quitter = { "Revenir au jeu", "Quitter" };
+		JOptionPane jop = new JOptionPane();
+		jop.setBounds(50, 50, 200, 200);
+		int rang = JOptionPane.showOptionDialog(null,
+				"Etes-vous sï¿½r de vouloir arrï¿½ter de jouer, si vous quitter la \n partie, la progression de votre partie sera effacï¿½ et  \n vous serez redirigï¿½ vers l'acceuil. ",
+				"QUITTEZ LA PARTIE : ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, Quitter,
+				Quitter[1]);
+		if (rang == 0) {
+		}
+		if (rang == 1) {
+			System.out.println("Vous avez quitter la partie --> Retour au menu");
+			goToAccueil();
+		}
+	}
+
 
 	@FXML
 	public void goToFin() throws IOException {
@@ -363,19 +411,26 @@ public class gameController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-	
+
 	@FXML
 	public void goToAccueil() throws IOException {
 		VBox root = new VBox();
 		accueilController.primaryStage = primaryStage;
 		root = FXMLLoader.load(getClass().getResource("Jeu - Accueil.fxml"));
+<<<<<<< HEAD
 		Scene scene = new Scene(root,Main.width,Main.height);
+=======
+		Scene scene = new Scene(root, Main.width, Main.height);
+>>>>>>> Lois_Viaud
 
 		primaryStage.setResizable(false);
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> Lois_Viaud
 }
