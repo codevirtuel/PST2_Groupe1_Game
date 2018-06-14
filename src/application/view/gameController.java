@@ -271,6 +271,7 @@ public class gameController {
 				finPartieController.listQuestions = listQuestions;
 				finPartieController.reponseQuestions = reponseQuestions;
 				showIcon(correct);
+				Endgame = true;
 				goToFin();
 			}
 
@@ -335,12 +336,14 @@ public class gameController {
 	public void chrono() {
 		if (s != 0) {
 			chronometre.setText(s + " secs");
+			System.out.println(s);
 			if (Endgame == false) {
-				new Timeline(new KeyFrame(Duration.seconds(1), event -> chrono())).play();
+				new Timeline(new KeyFrame(Duration.seconds(1), event -> chrono())).play();;
 			}
 			s--;
 		}else {
 			try {
+				//tl.stop();
 				valider();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
