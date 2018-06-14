@@ -238,11 +238,16 @@ public class gameController {
 	}
 
 	public boolean isAnwserCorrect(Question question) throws SQLException {
-		if (question.getReponses().equals(selectedZone)) {
-			return true;
-		} else {
-			return false;
+		boolean result = true;
+		
+		if(selectedZone.size() == 0) result = false;
+		
+		for(Zone z : selectedZone) {
+			if(!question.getReponses().contains(z)) {
+				result = false;
+			}
 		}
+		return result;
 	}
 
 	@FXML
@@ -264,8 +269,12 @@ public class gameController {
 				showZones();
 				showIcon(correct);
 				updateProgression();
+				
+				//Reset chrono
+				Endgame = true;
 				s = 20;
 				chrono();
+				Endgame = false;
 			}else {
 				System.out.println("Th�me termin� !");
 				finPartieController.listQuestions = listQuestions;
@@ -332,18 +341,16 @@ public class gameController {
 		image.getChildren().add(icon);
 
 	}
-
+	
 	public void chrono() {
 		if (s != 0) {
 			chronometre.setText(s + " secs");
-			System.out.println(s);
 			if (Endgame == false) {
-				new Timeline(new KeyFrame(Duration.seconds(1), event -> chrono())).play();;
+				new Timeline(new KeyFrame(Duration.seconds(1), event -> chrono())).play();
 			}
 			s--;
-		}else {
+		} else {
 			try {
-				//tl.stop();
 				valider();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
