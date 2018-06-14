@@ -56,17 +56,21 @@ public class gameController {
 	private List<Boolean> reponseQuestions = new ArrayList<Boolean>();
 	private Question questionActuelle;
 	double avancement;
-	int scoreActuel = 0;
+	public static int scoreActuel = 0;
 	private int idQuestion = 0;
-
+	public static int tempsTotal = 0;
+	
 	//preload music
 	private Media MUSIC_FAIL = new Media(new File("src/application/data/fail.mp3").toURI().toString());
 	private Media MUSIC_PASS = new Media(new File("src/application/data/pass.mp3").toURI().toString());
 
+	
+	
 	@FXML
 	VBox vbox;
 
-	public int s = 20;
+	private final int TEMPS_MAX = 15;
+	public int s = TEMPS_MAX;
 	boolean Endgame = false;
 
 	@FXML
@@ -242,8 +246,8 @@ public class gameController {
 		
 		if(selectedZone.size() == 0) result = false;
 		
-		for(Zone z : selectedZone) {
-			if(!question.getReponses().contains(z)) {
+		for(Zone z : question.getReponses()) {
+			if(!selectedZone.contains(z)) {
 				result = false;
 			}
 		}
@@ -259,7 +263,9 @@ public class gameController {
 			reponseQuestions.add(correct);
 			
 			idQuestion++;
-
+			
+			tempsTotal += TEMPS_MAX-s;
+			
 			if(idQuestion+1 <= listQuestions.size()) {
 				numeroQuestion.setText(""+(idQuestion+1));
 				questionActuelle = listQuestions.get(idQuestion);
@@ -271,15 +277,17 @@ public class gameController {
 				updateProgression();
 				
 				//Reset chrono
-				Endgame = true;
-				s = 20;
-				chrono();
-				Endgame = false;
+				s = TEMPS_MAX;
 			}else {
-				System.out.println("Th�me termin� !");
+				updateProgression();
+				showIcon(correct);
 				finPartieController.listQuestions = listQuestions;
 				finPartieController.reponseQuestions = reponseQuestions;
-				showIcon(correct);
+				finPartieController.tempsTotal = tempsTotal;
+				finPartieController.score = scoreActuel;
+				System.out.println("Th�me termin� !");
+				System.out.println("Temps total : "+tempsTotal);
+				System.out.println("Score total : "+scoreActuel);
 				Endgame = true;
 				goToFin();
 			}
@@ -302,6 +310,7 @@ public class gameController {
 		for(Boolean b : reponseQuestions) {
 			if(b == true) nbTrueQuestions++;
 		}
+		scoreActuel = nbTrueQuestions;
 		score.setText(nbTrueQuestions + " / " + nbQuestion);
 	}
 
@@ -342,16 +351,22 @@ public class gameController {
 
 	}
 	
+	Timeline tl = null;
+	
 	public void chrono() {
-		if (s != 0) {
+		if (s > 0 && Endgame == false) {
 			chronometre.setText(s + " secs");
-			if (Endgame == false) {
+			s--;
+			
+			if(Endgame != true) {
 				new Timeline(new KeyFrame(Duration.seconds(1), event -> chrono())).play();
 			}
-			s--;
+			
 		} else {
 			try {
-				valider();
+				if(Endgame == false) {
+					valider();
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -360,7 +375,6 @@ public class gameController {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	public void pop() throws IOException {
@@ -383,10 +397,11 @@ public class gameController {
 	@FXML
 	public void goToFin() throws IOException {
 		VBox root = new VBox();
-		finPartieController.primaryStage = primaryStage;
 		root = FXMLLoader.load(getClass().getResource("finDePartie.fxml"));
 		Scene scene = new Scene(root,Main.width,Main.height);
 
+		finPartieController.primaryStage = primaryStage;
+		
 		primaryStage.setResizable(false);
 
 		primaryStage.setScene(scene);
