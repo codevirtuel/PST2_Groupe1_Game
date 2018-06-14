@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="158.0" fitWidth="423.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@logo.png" />
+            <Image url="@/application/view/logo.png" />
          </image>
       </ImageView>
       <Label alignment="CENTER" prefHeight="45.0" prefWidth="640.0" text="- jeu de question avec sélection de zones -">

@@ -68,14 +68,14 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="51.0" prefWidth="640.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="640.0">
          <children>
             <Label prefHeight="22.0" prefWidth="102.0" text="Question n° ">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="numeroQuestion" prefHeight="22.0" prefWidth="47.0" text="Label">
+            <Label fx:id="numeroQuestion" prefHeight="22.0" prefWidth="18.0" text="Label">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>
@@ -85,7 +85,7 @@
                   <Insets left="15.0" right="10.0" />
                </HBox.margin>
             </ProgressBar>
-            <Label fx:id="pourcentage" prefHeight="22.0" prefWidth="98.0" text="\% effectués">
+            <Label fx:id="pourcentage" prefHeight="22.0" prefWidth="141.0" text="\% effectués">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>

@@ -44,15 +44,14 @@ public class Scaler {
 		
 		//AnchorPane
 		if(obj.getParent() instanceof AnchorPane) {
-			double anchorFactor = Math.round(factor);
 			//Left anchor
-			if(AnchorPane.getLeftAnchor(obj) != null) AnchorPane.setLeftAnchor(obj, AnchorPane.getLeftAnchor(obj)*anchorFactor);
+			if(AnchorPane.getLeftAnchor(obj) != null) AnchorPane.setLeftAnchor(obj, AnchorPane.getLeftAnchor(obj)*factor);
 			//Right anchor
-			if(AnchorPane.getRightAnchor(obj) != null) AnchorPane.setRightAnchor(obj, AnchorPane.getRightAnchor(obj)*anchorFactor);
+			if(AnchorPane.getRightAnchor(obj) != null) AnchorPane.setRightAnchor(obj, AnchorPane.getRightAnchor(obj)*factor);
 			//Top anchor
-			if(AnchorPane.getTopAnchor(obj) != null) AnchorPane.setTopAnchor(obj, AnchorPane.getTopAnchor(obj)*anchorFactor);
+			if(AnchorPane.getTopAnchor(obj) != null) AnchorPane.setTopAnchor(obj, AnchorPane.getTopAnchor(obj)*factor);
 			//Bottom anchor
-			if(AnchorPane.getBottomAnchor(obj) != null) AnchorPane.setBottomAnchor(obj, AnchorPane.getBottomAnchor(obj)*anchorFactor);
+			if(AnchorPane.getBottomAnchor(obj) != null) AnchorPane.setBottomAnchor(obj, AnchorPane.getBottomAnchor(obj)*factor);
 		}
 		
 		//HBox spacing

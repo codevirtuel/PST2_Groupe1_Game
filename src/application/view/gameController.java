@@ -56,17 +56,21 @@ public class gameController {
 	private List<Boolean> reponseQuestions = new ArrayList<Boolean>();
 	private Question questionActuelle;
 	double avancement;
-	int scoreActuel = 0;
+	public static int scoreActuel = 0;
 	private int idQuestion = 0;
-
+	public static int tempsTotal = 0;
+	
 	//preload music
 	private Media MUSIC_FAIL = new Media(new File("src/application/data/fail.mp3").toURI().toString());
 	private Media MUSIC_PASS = new Media(new File("src/application/data/pass.mp3").toURI().toString());
 
+	
+	
 	@FXML
 	VBox vbox;
 
-	public int s = 20;
+	private final int TEMPS_MAX = 15;
+	public int s = TEMPS_MAX;
 	boolean Endgame = false;
 
 	@FXML
@@ -237,38 +241,31 @@ public class gameController {
 		intituleQuestion.setText(question.getIntitule());
 	}
 
-	public List<Zone> getAnwsers(Question question) throws SQLException {
-		List<Zone> retour = new ArrayList<Zone>();
-
-		ResultSet result = Main.bdd.executeCmd("SELECT * FROM QUESTION WHERE NOM_THEME=" + "'" + nomTheme + "'");
-		int questionId = 0;
-		while (result.next()) {
-			questionId = result.getInt("ID_QUESTION");
-		}
-
-		result = Main.bdd.executeCmd("SELECT * FROM REPONSE WHERE ID_QUESTION=" + questionId);
-		while (result.next()) {
-			retour.add(theme.getZoneWithID(result.getInt("ID_ZONE")));
-		}
-
-		return retour;
-	}
-
 	public boolean isAnwserCorrect(Question question) throws SQLException {
-		if (getAnwsers(question).equals(selectedZone)) {
-			return true;
-		} else
-			return false;
+		boolean result = true;
+		
+		if(selectedZone.size() == 0) result = false;
+		
+		for(Zone z : question.getReponses()) {
+			if(!selectedZone.contains(z)) {
+				result = false;
+			}
+		}
+		return result;
 	}
 
 	@FXML
 
 	public void valider() throws IOException, InterruptedException {
 		try {
-			System.out.println(isAnwserCorrect(questionActuelle));
-			reponseQuestions.add(isAnwserCorrect(questionActuelle));
+			boolean correct = isAnwserCorrect(questionActuelle);
+			System.out.println("Correct ? : "+correct);
+			reponseQuestions.add(correct);
+			
 			idQuestion++;
-
+			
+			tempsTotal += TEMPS_MAX-s;
+			
 			if(idQuestion+1 <= listQuestions.size()) {
 				numeroQuestion.setText(""+(idQuestion+1));
 				questionActuelle = listQuestions.get(idQuestion);
@@ -276,13 +273,22 @@ public class gameController {
 				selectedZone.clear();
 				removeZones();
 				showZones();
-				showIcon(isAnwserCorrect(questionActuelle));
+				showIcon(correct);
 				updateProgression();
+				
+				//Reset chrono
+				s = TEMPS_MAX;
 			}else {
-				System.out.println("Th�me termin� !");
+				updateProgression();
+				showIcon(correct);
 				finPartieController.listQuestions = listQuestions;
 				finPartieController.reponseQuestions = reponseQuestions;
-				showIcon(isAnwserCorrect(questionActuelle));
+				finPartieController.tempsTotal = tempsTotal;
+				finPartieController.score = scoreActuel;
+				System.out.println("Th�me termin� !");
+				System.out.println("Temps total : "+tempsTotal);
+				System.out.println("Score total : "+scoreActuel);
+				Endgame = true;
 				goToFin();
 			}
 
@@ -304,6 +310,7 @@ public class gameController {
 		for(Boolean b : reponseQuestions) {
 			if(b == true) nbTrueQuestions++;
 		}
+		scoreActuel = nbTrueQuestions;
 		score.setText(nbTrueQuestions + " / " + nbQuestion);
 	}
 
@@ -343,18 +350,31 @@ public class gameController {
 		image.getChildren().add(icon);
 
 	}
-
+	
+	Timeline tl = null;
+	
 	public void chrono() {
-		if (s != 0) {
+		if (s > 0 && Endgame == false) {
 			chronometre.setText(s + " secs");
-			if (Endgame == false) {
+			s--;
+			
+			if(Endgame != true) {
 				new Timeline(new KeyFrame(Duration.seconds(1), event -> chrono())).play();
 			}
-			s--;
-		}else {
-			// questionSuivante();
+			
+		} else {
+			try {
+				if(Endgame == false) {
+					valider();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-
 	}
 
 	public void pop() throws IOException {
@@ -377,10 +397,11 @@ public class gameController {
 	@FXML
 	public void goToFin() throws IOException {
 		VBox root = new VBox();
-		finPartieController.primaryStage = primaryStage;
 		root = FXMLLoader.load(getClass().getResource("finDePartie.fxml"));
 		Scene scene = new Scene(root,Main.width,Main.height);
 
+		finPartieController.primaryStage = primaryStage;
+		
 		primaryStage.setResizable(false);
 
 		primaryStage.setScene(scene);

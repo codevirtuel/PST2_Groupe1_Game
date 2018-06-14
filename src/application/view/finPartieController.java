@@ -35,6 +35,9 @@ public class finPartieController {
 
 
 	public static Theme nomTheme;
+	public static int tempsTotal;
+	public static int score;
+	
 	@FXML
 	VBox vbox;
 
@@ -48,10 +51,16 @@ public class finPartieController {
 	Label nbBonnesQuestions;
 
 	@FXML
+	Label temps;
+	@FXML
+	Label scorePartie;
+	
+	@FXML
 	public void initialize() {
 		Scaler.updateSize(Main.width,vbox);
 		afficherNbBonnesReponces();
 		afficherListe();
+		afficherScoreTemps();
 	}
 
 	@FXML
@@ -81,6 +90,11 @@ public class finPartieController {
 		list.setItems(liste);
 	}
 
+	public void afficherScoreTemps() {
+		temps.setText(tempsTotal+" s");
+		scorePartie.setText(score+" pts");
+	}
+	
 	@FXML
 	public void goToAccueil() throws IOException {
 		VBox root = new VBox();
