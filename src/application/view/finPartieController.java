@@ -20,8 +20,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -77,12 +80,15 @@ public class finPartieController {
 	@FXML
 	public void afficherListe() {
 		ObservableList<String> liste = FXCollections.observableArrayList();
+		ImageView image = new ImageView();
 		for(int i=0;i<listQuestions.size();i++) {
 			String text = listQuestions.get(i).getIntitule()+"								";
 			if(reponseQuestions.get(i)) {
+				image.setImage(new Image("File:./src/application/data/pass.png"));
 				text += "true";
 			}
 			else {
+				image.setImage(new Image("File:./src/application/data/fail.png"));
 				text += "false";
 			}
 			liste.add(text);
