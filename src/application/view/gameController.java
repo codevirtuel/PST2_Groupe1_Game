@@ -281,6 +281,7 @@ public class gameController {
 			}else {
 				updateProgression();
 				showIcon(correct);
+				finPartieController.nomTheme = theme;
 				finPartieController.listQuestions = listQuestions;
 				finPartieController.reponseQuestions = reponseQuestions;
 				finPartieController.tempsTotal = tempsTotal;

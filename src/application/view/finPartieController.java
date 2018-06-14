@@ -109,7 +109,7 @@ public class finPartieController {
 	}
 
 	@FXML
-	public void pop( ) throws SQLException {
+	public void pop( ) throws SQLException, IOException {
 
 		TextInputDialog nomJoueur = new TextInputDialog("");
 		nomJoueur.setTitle("Enregistrez le score");
@@ -119,11 +119,44 @@ public class finPartieController {
 
 		Optional<String> textIn = nomJoueur.showAndWait();
 		if (textIn.isPresent()) {
-			System.out.println("INSERT INTO JOUEUR(SCORE_JOUEUR, TEMPS_JOUEUR, NOM_THEME, NOM_JOUEUR)"
-					+ "VALUES(" + 0 + "," + 0 + "," + "'" + nomTheme.getNom() + "'" + "," + "'" + textIn.get() + "'"
-					+ ")");
-//			ResultSet result = Main.bdd.executeCmd("INSERT INTO JOUEUR(SCORE_JOUEUR, TEMPS_JOUEUR, NOM_THEME, NOM_JOUEUR) "
-//					+ " VALUES ("+0+ "," + 0 + "," + "'" + nomTheme.getNom() +"'"+ "," + "'"+ textIn.get()+ "' "+")");
+		insertScore(textIn.get());
+		goToAccueil();
+		}
+	}
+	
+	
+	public void insertScore(String j1) throws SQLException{
+		boolean isHere = false;
+		ResultSet result = Main.bdd.executeCmd("SELECT * FROM JOUEUR WHERE "
+				+ "NOM_THEME = " + "'" +nomTheme.getNom()+ "'");
+		while(result.next()){
+			if(j1.equals(result.getString("NOM_JOUEUR"))){
+				isHere = true;
 			}
+		}
+		if(isHere){
+			result = Main.bdd.executeCmd("SELECT SCORE_JOUEUR FROM JOUEUR WHERE "
+					+ "NOM_THEME = " + "'" +nomTheme.getNom()+ "'" );
+			while(result.next()){
+				if(score > result.getInt("SCORE_JOUEUR")){
+					ResultSet result2 = Main.bdd.executeCmd("UPDATE JOUEUR SET SCORE_JOUEUR = " + score + 
+							" WHERE NOM_THEME = " + "'" +nomTheme.getNom()+ "'" + 
+							" AND NOM_JOUEUR = " + "'" + j1 + "'"); 
+				}
+			}
+		}else{
+			int lastID = 0;
+			result = Main.bdd.executeCmd("SELECT MAX(ID_JOUEUR) AS ID_JOUEUR FROM JOUEUR");
+			while(result.next()){
+				lastID = result.getInt("ID_JOUEUR");
+			}
+			
+			lastID++;
+			boolean result3 = Main.bdd.executeUpdate("INSERT INTO JOUEUR(ID_JOUEUR,SCORE_JOUEUR, TEMPS_JOUEUR, NOM_THEME, NOM_JOUEUR)"
+					+ "VALUES("+lastID+"," + score + "," + tempsTotal + "," + 
+					"'" + nomTheme.getNom() + "'" + "," + "'" +j1+ "'"
+					+ ")");
+		}
+		
 	}
 }

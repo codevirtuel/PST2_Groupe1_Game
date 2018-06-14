@@ -18,6 +18,12 @@ public class Connect {
 		ResultSet res = pst.executeQuery();
 		return res;
 	}
+	
+	public boolean executeUpdate(String requete) throws SQLException {
+		stt = con.createStatement();
+		boolean res = stt.execute(requete);
+		return res;
+	}
 
 	public void Affichage(ResultSet res, String nom) throws SQLException {
 		while (res.next()) {
