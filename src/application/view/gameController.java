@@ -9,6 +9,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JOptionPane;
 
@@ -26,6 +27,7 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -63,12 +65,14 @@ public class gameController {
 	public static int tempsTotal = 0;
 	
 	private int timeBeforeSwitch = 3; //Temps d'attente à la fin d'une partie en seconde
+	private Timeline chrono = new Timeline(new KeyFrame(Duration.seconds(1), event -> chrono()));
 	
 	//preload music
 	private Media MUSIC_FAIL = new Media(new File("src/application/data/fail.mp3").toURI().toString());
 	private Media MUSIC_PASS = new Media(new File("src/application/data/pass.mp3").toURI().toString());
+	private Media BACKGROUND_MUSIC;
 
-	
+	MediaPlayer player;
 	
 	@FXML
 	VBox vbox;
@@ -96,8 +100,25 @@ public class gameController {
 
 	@FXML
 	AnchorPane image;
+	
+	@FXML
+	Button btValider;
+	@FXML
+	Button btQuitter;
 
 	public void initialize() {
+		
+		Random rnd = new Random();
+		double randomNbr = rnd.nextInt(100);
+		System.out.println(randomNbr);
+		
+		if(randomNbr >= 0 && randomNbr <= 80)
+			BACKGROUND_MUSIC = new Media(new File("src/application/data/Backbay Lounge.mp3").toURI().toString());
+		
+		if(randomNbr > 80 && randomNbr <= 100)
+			BACKGROUND_MUSIC = new Media(new File("src/application/data/flamingo.mp3").toURI().toString());
+		
+		tempsTotal = 0;
 		Scaler.updateSize(Main.width, vbox);
 		try {
 			loadTheme();
@@ -119,6 +140,19 @@ public class gameController {
 		pourcentage.setText((int) (progression.getProgress() * 100) + " % effectuï¿½s");
 		score.setText((scoreActuel) + " / " + nbQuestion);
 		numeroQuestion.setText(""+(idQuestion+1));
+		
+		player = new MediaPlayer(BACKGROUND_MUSIC);
+		Ini saveFile = null;
+		try {
+			saveFile = new Ini(new File("options.ini"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		player.setVolume(saveFile.get("other","volume",double.class)/100);
+		player.setCycleCount(MediaPlayer.INDEFINITE);
+		player.play();
+		
 	}
 
 	//Charge le thï¿½me via la classe Thï¿½me
@@ -198,15 +232,15 @@ public class gameController {
 	public void showZones() {
 		for(Zone z : theme.getZones()) {
 			z.setId(""+z.getIndex());
-			z.setOpacity(2.0);
 
 			if (selectedZone.contains(z))
 				z.setFill(Color.GREEN);
 			else
-				z.setFill(Color.RED);
+				z.setFill(Color.WHITE);
 
+			z.setOpacity(0.3);
 			z.setStroke(Color.BLACK);
-			z.setStrokeWidth(1);
+			z.setStrokeWidth(2);
 			image.getChildren().add(z);
 		}
 	}
@@ -227,6 +261,7 @@ public class gameController {
 		String index = e.getPickResult().getIntersectedNode().getId();
 		if (!index.equals("image")) {
 			Zone correspondingZone = theme.getZoneWithID(Integer.valueOf(index));
+			
 			if (selectedZone.contains(correspondingZone))
 				selectedZone.remove(correspondingZone);
 			else
@@ -236,9 +271,25 @@ public class gameController {
 				selectedZone.remove(0);
 			}
 		}
+		hoverMouse(e);
 		updateZones();
 	}
-
+	
+	@FXML
+	public void hoverMouse(MouseEvent e) {
+		String index = e.getPickResult().getIntersectedNode().getId();
+		if (!index.equals("image")) {
+		Zone correspondingZone = theme.getZoneWithID(Integer.valueOf(index));
+			if (selectedZone.contains(correspondingZone)) {
+				correspondingZone.setOnMouseEntered( e2 -> correspondingZone.setFill(Color.LIGHTGREEN));
+				correspondingZone.setOnMouseExited(e2 -> correspondingZone.setFill(Color.GREEN));
+			}else {
+				correspondingZone.setOnMouseEntered( e2 -> correspondingZone.setFill(Color.BLACK));
+				correspondingZone.setOnMouseExited(e2 -> correspondingZone.setFill(Color.WHITE));
+			}
+		}
+	}
+	
 	// -- gestion questions --
 	public void showQuestion(Question question) {
 		// intitulï¿½
@@ -252,6 +303,12 @@ public class gameController {
 		
 		for(Zone z : question.getReponses()) {
 			if(!selectedZone.contains(z)) {
+				result = false;
+			}
+		}
+		
+		for(Zone z : selectedZone) {
+			if(!question.getReponses().contains(z)) {
 				result = false;
 			}
 		}
@@ -282,6 +339,8 @@ public class gameController {
 				
 				//Reset chrono
 				s = TEMPS_MAX;
+				chrono.stop();
+				chrono();
 			}else {
 				updateProgression();
 				showIcon(correct);
@@ -294,6 +353,10 @@ public class gameController {
 				System.out.println("Temps total : "+tempsTotal);
 				System.out.println("Score total : "+scoreActuel);
 				Endgame = true;
+				chrono.stop();
+				
+				btValider.setDisable(true);
+				btQuitter.setDisable(true);
 				
 				Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(timeBeforeSwitch)));
 				timeline.play();
@@ -354,7 +417,7 @@ public class gameController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		player.setVolume(saveFile.get("other","volume",double.class));
+		player.setVolume(saveFile.get("other","volume",double.class)/100);
 		icon = new ImageView(img);
 
 		double positionX = width-img.getWidth()/2;
@@ -364,12 +427,14 @@ public class gameController {
 
 		icon.setX(positionX);
 		icon.setY(positionY);
-
+		
 		player.play();
+		
 		Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(icon.imageProperty(), img)),
                 new KeyFrame(Duration.seconds(1), new KeyValue(icon.imageProperty(), null))
                 );
+		
 		timeline.play();
 		image.getChildren().add(icon);
 
@@ -378,19 +443,18 @@ public class gameController {
 	Timeline tl = null;
 	
 	public void chrono() {
-		if (s > 0 && Endgame == false) {
+		if (s > 0) {
 			chronometre.setText(s + " secs");
 			s--;
-			
+
 			if(Endgame != true) {
-				new Timeline(new KeyFrame(Duration.seconds(1), event -> chrono())).play();
+				chrono = new Timeline(new KeyFrame(Duration.seconds(1), event -> chrono()));
+				chrono.play();
 			}
 			
 		} else {
 			try {
-				if(Endgame == false) {
 					valider();
-				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -413,6 +477,7 @@ public class gameController {
 		}
 		if (rang == 1) {
 			System.out.println("Vous avez quitter la partie --> Retour au menu");
+			chrono.stop();
 			goToAccueil();
 		}
 	}
@@ -420,6 +485,7 @@ public class gameController {
 
 	@FXML
 	public void goToFin() throws IOException {
+		player.stop();
 		VBox root = new VBox();
 		root = FXMLLoader.load(getClass().getResource("finDePartie.fxml"));
 		Scene scene = new Scene(root,Main.width,Main.height);
@@ -434,6 +500,7 @@ public class gameController {
 
 	@FXML
 	public void goToAccueil() throws IOException {
+		player.stop();
 		VBox root = new VBox();
 		accueilController.primaryStage = primaryStage;
 		root = FXMLLoader.load(getClass().getResource("Jeu - Accueil.fxml"));

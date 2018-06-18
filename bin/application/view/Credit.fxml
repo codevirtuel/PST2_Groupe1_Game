@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.creditController">
+<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#konami" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgrey;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.creditController">
    <children>
-      <Label alignment="CENTER" prefHeight="47.0" prefWidth="676.0" text="- Crédit -">
+      <Label fx:id="test" alignment="CENTER" prefHeight="47.0" prefWidth="676.0" text="- Crédit -">
          <font>
             <Font name="Arial" size="40.0" />
          </font>
