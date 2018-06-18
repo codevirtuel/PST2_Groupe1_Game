@@ -62,6 +62,8 @@ public class gameController {
 	private int idQuestion = 0;
 	public static int tempsTotal = 0;
 	
+	private int timeBeforeSwitch = 3; //Temps d'attente à la fin d'une partie en seconde
+	
 	//preload music
 	private Media MUSIC_FAIL = new Media(new File("src/application/data/fail.mp3").toURI().toString());
 	private Media MUSIC_PASS = new Media(new File("src/application/data/pass.mp3").toURI().toString());
@@ -292,7 +294,18 @@ public class gameController {
 				System.out.println("Temps total : "+tempsTotal);
 				System.out.println("Score total : "+scoreActuel);
 				Endgame = true;
-				goToFin();
+				
+				Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(timeBeforeSwitch)));
+				timeline.play();
+				
+				timeline.setOnFinished(e -> {
+					try {
+						goToFin();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				});
 			}
 
 		} catch (SQLException e) {
