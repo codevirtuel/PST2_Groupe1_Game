@@ -40,11 +40,12 @@
                         <Insets right="20.0" />
                      </HBox.margin>
                   </ListView>
-                  <TableView fx:id="listeScore" fixedCellSize="3.0" maxHeight="-Infinity" prefHeight="157.0" prefWidth="338.0">
+                  <TableView fx:id="listeScore" fixedCellSize="4.0" maxHeight="-Infinity" prefHeight="157.0" prefWidth="338.0">
                     <columns>
                       <TableColumn fx:id="placementCol" editable="false" prefWidth="75.0" text="Placement" />
                       <TableColumn fx:id="joueurCol" prefWidth="75.0" text="Joueur" />
                         <TableColumn fx:id="scoreCol" prefWidth="75.0" text="Score" />
+                        <TableColumn fx:id="tempsCol" prefWidth="75.0" text="Temps" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -45,6 +45,13 @@ public class parametresController {
 	public void initialize() {
 		Scaler.updateSize(Main.width,vbox);
 		populateResolutions();
+		try {
+			loadVolume();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		showVolume();
 	}
 	
 	@FXML 
@@ -59,7 +66,16 @@ public class parametresController {
 		primaryStage.show();
 	}
 	
-
+	public void loadVolume() throws InvalidFileFormatException, IOException {
+		Ini save = new Ini(new File("options.ini"));
+		volume = save.get("other","volume",double.class);
+	}
+	
+	@FXML
+	public void showVolume() {
+		slider.setValue(volume);
+		currentVolume.setText(Math.round(volume)+"%");
+	}
 	
 	@FXML
 	public void sauvegarder() throws IOException {
@@ -139,7 +155,7 @@ public class parametresController {
 			Main.height = 936;
 			break;
 		case "1920 x 1080":
-			Main.width = 1980;
+			Main.width = 1920;
 			Main.height = 1080;
 			break;
 		}
