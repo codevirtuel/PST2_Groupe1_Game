@@ -11,13 +11,17 @@ import org.ini4j.Ini;
 import application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -35,14 +39,14 @@ public static Stage primaryStage;
 	VBox vbox;
 	
 	@FXML
-	Label test;
+	ImageView image;
 	
 	@FXML
 	public void initialize() throws FileNotFoundException {
 		
-		InputStream inputstream = new FileInputStream(new File("src/application/Russian Dollmaker.ttf").getAbsolutePath());
+		InputStream inputstream = new FileInputStream(new File("src/application/Soviet2.ttf").getAbsolutePath());
 		System.out.println(inputstream);
-		font = Font.loadFont(inputstream, 50);
+		font = Font.loadFont(inputstream, 40);
 		Scaler.updateSize(Main.width,vbox);
 	}
 	
@@ -96,8 +100,17 @@ public static Stage primaryStage;
 		player.play();
 		
 		//Load font
-		System.out.println(font.getFamily());
-		test.setFont(font);
+		for(Node n : Scaler.nodes) {
+			if(n instanceof Label) {
+				((Label) n).setFont(font);
+				((Label) n).setTextFill(Color.rgb(255, 217, 0));
+			}
+		}
 		
+		//Set background
+		vbox.setStyle("-fx-background-color:rgb(205, 0, 0)");
+		
+		//Replace logo
+		image.setImage(new Image("File:./src/application/data/logoB.png"));
 	}
 }
