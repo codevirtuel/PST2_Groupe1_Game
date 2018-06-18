@@ -55,7 +55,7 @@ public class accueilController {
 	public void goToCredits() throws IOException {
 		VBox root = new VBox();
 		creditController.primaryStage = primaryStage;
-		root = FXMLLoader.load(getClass().getResource("credit.fxml"));
+		root = FXMLLoader.load(getClass().getResource("Credit.fxml"));
 		Scene scene = new Scene(root,Main.width,Main.height);
 		
 		primaryStage.setResizable(false);

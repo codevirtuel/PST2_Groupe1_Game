@@ -78,7 +78,7 @@
             </VBox>
             <ImageView fitHeight="91.0" fitWidth="262.0" layoutX="347.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="53.83000335693359" AnchorPane.leftAnchor="347.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="56.0">
                <image>
-                  <Image url="@../../../bin/application/view/logo.png" />
+                  <Image url="@/application/view/logo.png" />
                </image>
             </ImageView>
          </children>
