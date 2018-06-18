@@ -12,6 +12,8 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.ini4j.Ini;
+
 import com.sun.javafx.geom.Point2D;
 
 import application.Main;
@@ -331,6 +333,14 @@ public class gameController {
 		}
 
 		MediaPlayer player = new MediaPlayer(media);
+		Ini saveFile = null;
+		try {
+			saveFile = new Ini(new File("options.ini"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		player.setVolume(saveFile.get("other","volume",double.class));
 		icon = new ImageView(img);
 
 		double positionX = width-img.getWidth()/2;

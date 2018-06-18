@@ -37,12 +37,15 @@ public class selectionThemeController {
 	TableColumn<Score, String> joueurCol;
 	@FXML
 	TableColumn<Score, String> scoreCol;
+	@FXML
+	TableColumn<Score, String> tempsCol;
 	
 	@FXML
 	public void initialize() {
 		placementCol.setCellValueFactory(cellData -> cellData.getValue().placementProperty());
 		joueurCol.setCellValueFactory(cellData -> cellData.getValue().joueurProperty());
 		scoreCol.setCellValueFactory(cellData -> cellData.getValue().scoreProperty());
+		tempsCol.setCellValueFactory(cellData -> cellData.getValue().tempsProperty());
 		
 		listeScore.setFixedCellSize(30);
 		
@@ -82,7 +85,7 @@ public class selectionThemeController {
 		
 		ResultSet result = Main.bdd.executeCmd("SELECT * FROM JOUEUR WHERE NOM_THEME="+"'"+nomTheme+"'"+" ORDER BY SCORE_JOUEUR DESC");
 		while(result.next()) {
-			liste.add(new Score(placement,result.getString("NOM_JOUEUR"),result.getInt("SCORE_JOUEUR")));
+			liste.add(new Score(placement,result.getString("NOM_JOUEUR"),result.getInt("SCORE_JOUEUR"),result.getInt("TEMPS_JOUEUR")));
 			placement++;
 		}
 		

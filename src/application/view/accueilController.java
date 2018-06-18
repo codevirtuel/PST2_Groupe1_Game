@@ -21,6 +21,7 @@ public class accueilController {
 	@FXML
 	public void initialize() {
 		Scaler.updateSize(Main.width,vbox);
+		System.out.println("Window size factor : "+Scaler.getFactor());
 	}
 
 	
