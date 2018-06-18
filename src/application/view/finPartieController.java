@@ -36,10 +36,12 @@ public class finPartieController {
 	public static List<Question> listQuestions = new ArrayList<Question>();
 	public static List<Boolean> reponseQuestions = new ArrayList<Boolean>();
 
-
 	public static Theme nomTheme;
 	public static int tempsTotal;
 	public static int score;
+	
+	private Image IMAGE_PASS;
+	private Image IMAGE_FAIL;
 	
 	@FXML
 	VBox vbox;
@@ -61,6 +63,10 @@ public class finPartieController {
 	@FXML
 	public void initialize() {
 		Scaler.updateSize(Main.width,vbox);
+		double factor = Scaler.getFactor();
+		IMAGE_PASS = new Image("File:./src/application/data/pass.png",20*factor,20*factor,true,false);
+		IMAGE_FAIL = new Image("File:./src/application/data/fail.png",20*factor,20*factor,true,false);
+		
 		afficherNbBonnesReponces();
 		afficherListe();
 		afficherScoreTemps();
@@ -77,23 +83,45 @@ public class finPartieController {
 		nbBonnesQuestions.setText(modele1+nb+modele2);
 	}
 
+	@SuppressWarnings("unchecked")
 	@FXML
 	public void afficherListe() {
 		ObservableList<String> liste = FXCollections.observableArrayList();
-		ImageView image = new ImageView();
 		for(int i=0;i<listQuestions.size();i++) {
-			String text = listQuestions.get(i).getIntitule()+"								";
-			if(reponseQuestions.get(i)) {
-				image.setImage(new Image("File:./src/application/data/pass.png"));
-				text += "true";
-			}
-			else {
-				image.setImage(new Image("File:./src/application/data/fail.png"));
-				text += "false";
-			}
+			String text = listQuestions.get(i).getIntitule();
 			liste.add(text);
 		}
 		list.setItems(liste);
+		
+		//Ajouter les images
+		list.setCellFactory(param -> new ListCell<String>() {
+            private ImageView imageView = new ImageView();
+            @Override
+            public void updateItem(String name, boolean empty) {
+                super.updateItem(name, empty);
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                	int getId = 0;
+                	for(Question q : listQuestions) {
+                		if(q.getIntitule().equals(name)) {
+                			getId = listQuestions.indexOf(q);
+                			break;
+                		}
+                	}
+                	
+                	if(reponseQuestions.get(getId)) {
+                		imageView.setImage(IMAGE_PASS);
+                	}else {
+                		imageView.setImage(IMAGE_FAIL);
+                	}
+                    setText(name);
+                    setGraphic(imageView);
+                }
+            }
+        });
+		
 	}
 
 	public void afficherScoreTemps() {
@@ -165,4 +193,6 @@ public class finPartieController {
 		}
 		
 	}
+	
+	
 }
