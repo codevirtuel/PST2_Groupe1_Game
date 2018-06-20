@@ -39,6 +39,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -75,7 +76,7 @@ public class gameController {
 	MediaPlayer player;
 	
 	@FXML
-	VBox vbox;
+	BorderPane vbox;
 
 	private final int TEMPS_MAX = 15;
 	public int s = TEMPS_MAX;

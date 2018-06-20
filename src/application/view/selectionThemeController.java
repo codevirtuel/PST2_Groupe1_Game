@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -116,14 +117,14 @@ public class selectionThemeController {
 	
 	@FXML
 	public void goToGame() throws IOException {
-		VBox root = new VBox();
+		BorderPane root = new BorderPane();
 		gameController.primaryStage = primaryStage;
 		gameController.nomTheme = listeTheme.getSelectionModel().getSelectedItem().toString();
 		
 		root = FXMLLoader.load(getClass().getResource("pageDeJeu.fxml"));
 		Scene scene = new Scene(root,Main.width,Main.height);
 		
-		primaryStage.setResizable(true);
+		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
