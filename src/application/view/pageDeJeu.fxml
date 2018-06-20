@@ -23,7 +23,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="200.0" prefWidth="494.0">
                <children>
-                  <AnchorPane fx:id="image" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickOnZone" prefHeight="200.0" prefWidth="400.0" />
+                  <AnchorPane fx:id="image" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#clickOnZone" onMouseMoved="#hoverMouse" prefHeight="200.0" prefWidth="400.0" />
                </children>
             </HBox>
             <VBox alignment="CENTER" prefHeight="260.0" prefWidth="150.0">
@@ -51,12 +51,12 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" onMouseClicked="#valider" prefWidth="100.0" style="-fx-background-color: lightgreen;" text="Valider">
+                  <Button fx:id="btValider" mnemonicParsing="false" onMouseClicked="#valider" prefWidth="100.0" style="-fx-background-color: lightgreen;" text="Valider">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onMouseClicked="#pop" prefWidth="100.0" style="-fx-background-color: red;" text="Quitter">
+                  <Button fx:id="btQuitter" mnemonicParsing="false" onMouseClicked="#pop" prefWidth="100.0" style="-fx-background-color: red;" text="Quitter">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
