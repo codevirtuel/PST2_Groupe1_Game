@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.finPartieController">
+<VBox fx:id="vbox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="640.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.finPartieController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="725.0" text="- Fin de partie -">
          <font>
@@ -54,12 +54,12 @@
                   <Font name="Arial Bold" size="10.0" />
                </font>
             </Button>
-            <Label fx:id="scorePartie" layoutX="254.0" layoutY="40.0" prefHeight="25.0" prefWidth="44.0" text="x pts" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="321.0" AnchorPane.topAnchor="40.0">
+            <Label fx:id="scorePartie" layoutX="243.0" layoutY="40.0" prefHeight="27.0" prefWidth="56.0" text="x pts" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="243.0" AnchorPane.rightAnchor="321.0" AnchorPane.topAnchor="40.0">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="temps" layoutX="256.0" layoutY="70.0" prefHeight="25.0" prefWidth="35.0" text="x s" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="256.0" AnchorPane.rightAnchor="328.0" AnchorPane.topAnchor="70.0">
+            <Label fx:id="temps" layoutX="244.0" layoutY="70.0" prefHeight="27.0" prefWidth="48.0" text="x s" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="244.0" AnchorPane.rightAnchor="328.0" AnchorPane.topAnchor="70.0">
                <font>
                   <Font name="Arial" size="18.0" />
                </font>

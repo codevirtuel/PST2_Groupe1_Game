@@ -60,6 +60,8 @@ public class finPartieController {
 	@FXML
 	Label scorePartie;
 	
+	//-- FXML functions --
+	
 	@FXML
 	public void initialize() {
 		Scaler.updateSize(Main.width,vbox);
@@ -123,41 +125,13 @@ public class finPartieController {
         });
 		
 	}
+	
+	//-- Functions --
 
 	public void afficherScoreTemps() {
 		temps.setText(tempsTotal+" s");
 		scorePartie.setText(score+" pts");
 	}
-	
-	@FXML
-	public void goToAccueil() throws IOException {
-		VBox root = new VBox();
-		accueilController.primaryStage = primaryStage;
-		root = FXMLLoader.load(getClass().getResource("Jeu - Accueil.fxml"));
-		Scene scene = new Scene(root,Main.width,Main.height);
-
-		primaryStage.setResizable(false);
-
-		primaryStage.setScene(scene);
-		primaryStage.show();
-	}
-
-	@FXML
-	public void pop( ) throws SQLException, IOException {
-
-		TextInputDialog nomJoueur = new TextInputDialog("");
-		nomJoueur.setTitle("Enregistrez le score");
-		nomJoueur.setHeaderText("Entrez votre nom ");
-		nomJoueur.setGraphic(null);
-		nomJoueur.setContentText("Pseudo :");
-
-		Optional<String> textIn = nomJoueur.showAndWait();
-		if (textIn.isPresent()) {
-		insertScore(textIn.get());
-		goToAccueil();
-		}
-	}
-	
 	
 	public void insertScore(String j1) throws SQLException{
 		boolean isHere = false;
@@ -194,5 +168,35 @@ public class finPartieController {
 		
 	}
 	
+	//-- Switch stage --
+	
+	@FXML
+	public void goToAccueil() throws IOException {
+		VBox root = new VBox();
+		accueilController.primaryStage = primaryStage;
+		root = FXMLLoader.load(getClass().getResource("Jeu - Accueil.fxml"));
+		Scene scene = new Scene(root,Main.width,Main.height);
+
+		primaryStage.setResizable(false);
+
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+
+	@FXML
+	public void pop( ) throws SQLException, IOException {
+
+		TextInputDialog nomJoueur = new TextInputDialog("");
+		nomJoueur.setTitle("Enregistrez le score");
+		nomJoueur.setHeaderText("Entrez votre nom ");
+		nomJoueur.setGraphic(null);
+		nomJoueur.setContentText("Pseudo :");
+
+		Optional<String> textIn = nomJoueur.showAndWait();
+		if (textIn.isPresent()) {
+		insertScore(textIn.get());
+		goToAccueil();
+		}
+	}
 	
 }
